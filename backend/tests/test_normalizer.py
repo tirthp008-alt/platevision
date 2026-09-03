@@ -58,6 +58,12 @@ def test_position_aware_character_substitution():
     assert norm == "GJ01AB1234"
     assert status == "valid"
 
+    # O vs D in Series position: GJ27OS4837 -> GJ27DS4837
+    norm, fmt, status = normalize_indian_plate("GJ27OS4837")
+    assert norm == "GJ27DS4837"
+    assert fmt == "GJ 27 DS 4837"
+    assert status == "valid"
+
 
 def test_bh_series_normalization():
     norm, fmt, status = normalize_indian_plate("22 BH 1234 AA")
