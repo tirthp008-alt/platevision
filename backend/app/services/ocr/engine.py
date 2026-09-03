@@ -1,5 +1,5 @@
 """High-performance, high-accuracy OCR recognition engine with RapidOCR (PaddleOCR ONNX),
-Fast-Path early exit, multi-line plate support, and distant small-crop super-resolution.
+tight crop normalization, multi-line Indian plate aggregation, and fast-exit caching.
 """
 
 import os
@@ -35,7 +35,7 @@ class OCRResult:
 
 
 class OCREngine:
-    """Ultra-fast, high-accuracy OCR Engine with RapidOCR (PaddleOCR ONNX), multi-line aggregation, and fast-exit caching."""
+    """Ultra-fast, high-accuracy OCR Engine with RapidOCR (PaddleOCR ONNX), tight crop normalization, and fast-exit."""
 
     def __init__(self):
         self._rapidocr = None
@@ -46,7 +46,6 @@ class OCREngine:
         try:
             from rapidocr_onnxruntime import RapidOCR  # type: ignore
 
-            # Initialize RapidOCR with optimal text detection & recognition parameters
             self._rapidocr = RapidOCR()
             self._engine_type = "rapidocr"
             logger.info("OCR Engine initialized with high-accuracy RapidOCR (PaddleOCR ONNX).")
@@ -55,19 +54,24 @@ class OCREngine:
             logger.warning(f"RapidOCR initialization failed ({e}), falling back to heuristic engine.")
             self._engine_type = "heuristic"
 
-    def _upscale_distant_crop(self, bgr_crop: np.ndarray, target_height: int = 120) -> np.ndarray:
-        """Applies super-resolution upscaling with unsharp masking for distant/small license plate crops."""
+    def _preprocess_crop(self, bgr_crop: np.ndarray, target_height: int = 48) -> np.ndarray:
+        """Tightly resizes and enhances the plate crop for optimal text recognition."""
         h, w = bgr_crop.shape[:2]
-        if h < target_height:
-            scale = target_height / float(h)
-            new_w = int(w * scale)
-            new_h = target_height
-            upscaled = cv2.resize(bgr_crop, (new_w, new_h), interpolation=cv2.INTER_LANCZOS4)
-            # Apply subtle unsharp sharpening to restore edges on far-distance plates
-            gaussian = cv2.GaussianBlur(upscaled, (0, 0), 2.0)
-            sharpened = cv2.addWeighted(upscaled, 1.5, gaussian, -0.5, 0)
-            return sharpened
-        return bgr_crop
+        if h == 0 or w == 0:
+            return bgr_crop
+
+        # Scale to standard height (48px) maintaining aspect ratio
+        scale = target_height / float(h)
+        target_width = max(32, int(w * scale))
+        resized = cv2.resize(bgr_crop, (target_width, target_height), interpolation=cv2.INTER_LANCZOS4)
+
+        # Apply subtle CLAHE contrast enhancement
+        gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
+        clahe = cv2.createCLAHE(clipLimit=2.5, tileGridSize=(8, 8))
+        enhanced_gray = clahe.apply(gray)
+        enhanced_bgr = cv2.cvtColor(enhanced_gray, cv2.COLOR_GRAY2BGR)
+
+        return enhanced_bgr
 
     def _run_rapidocr(self, img_bgr: np.ndarray) -> Tuple[str, float]:
         """Runs RapidOCR with vertical line grouping and 2-line plate aggregation."""
@@ -80,8 +84,6 @@ class OCREngine:
                 return "", 0.0
 
             # Sort detected text boxes top-to-bottom, then left-to-right (handles both 1-line and 2-line plates)
-            # result item format: [box_points, text, confidence_score]
-            # box_points is [[x1,y1], [x2,y2], [x3,y3], [x4,y4]]
             sorted_items = sorted(
                 results,
                 key=lambda item: (
@@ -100,7 +102,6 @@ class OCREngine:
                     confs.append(score)
 
             if text_chunks:
-                # Combine multiple lines into a single plate string
                 combined_text = " ".join(text_chunks)
                 avg_conf = float(np.mean(confs)) if confs else 0.85
                 return combined_text.strip(), max(0.35, min(0.99, avg_conf))
@@ -115,21 +116,15 @@ class OCREngine:
         if bgr_crop is None or bgr_crop.size == 0:
             return OCRResult("", "", "", 0.0, "uncertain", "none", np.zeros((10, 10), dtype=np.uint8))
 
-        # 1. Enhance & upscale distant small crops
-        enhanced_crop = self._upscale_distant_crop(bgr_crop, target_height=120)
+        # 1. Tight crop preprocessing
+        enhanced_bgr = self._preprocess_crop(bgr_crop, target_height=48)
 
-        # FAST PATH (Primary evaluation: CLAHE + Unsharp Enhanced image):
-        # Typically resolves 90%+ of plates in ~40ms without needing secondary variants
-        primary_gray = cv2.cvtColor(enhanced_crop, cv2.COLOR_BGR2GRAY)
-        clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
-        primary_enhanced = clahe.apply(primary_gray)
-        primary_bgr = cv2.cvtColor(primary_enhanced, cv2.COLOR_GRAY2BGR)
-
-        raw_text, ocr_conf = self._run_rapidocr(primary_bgr)
+        # FAST PATH (Primary evaluation):
+        raw_text, ocr_conf = self._run_rapidocr(enhanced_bgr)
         norm_text, fmt_text, status = normalize_indian_plate(raw_text)
 
         # Early exit if highly confident and valid format
-        if status == "valid" and ocr_conf >= 0.75:
+        if status == "valid" and ocr_conf >= 0.70:
             return OCRResult(
                 raw_text=raw_text,
                 normalized_text=norm_text,
@@ -137,43 +132,39 @@ class OCREngine:
                 confidence=round(ocr_conf, 2),
                 format_status=status,
                 best_variant_name="fast_clahe",
-                best_variant_image=primary_enhanced,
+                best_variant_image=cv2.cvtColor(enhanced_bgr, cv2.COLOR_BGR2GRAY),
             )
 
-        # 2. Secondary Pass: Raw enhanced crop direct pass
-        raw_text_2, ocr_conf_2 = self._run_rapidocr(enhanced_crop)
+        # 2. Secondary Pass: Raw crop direct pass
+        raw_text_2, ocr_conf_2 = self._run_rapidocr(bgr_crop)
         norm_text_2, fmt_text_2, status_2 = normalize_indian_plate(raw_text_2)
 
-        if status_2 == "valid" and ocr_conf_2 >= 0.75:
+        if status_2 == "valid" and ocr_conf_2 >= 0.70:
             return OCRResult(
                 raw_text=raw_text_2,
                 normalized_text=norm_text_2,
                 formatted_text=fmt_text_2,
                 confidence=round(ocr_conf_2, 2),
                 format_status=status_2,
-                best_variant_name="raw_enhanced",
-                best_variant_image=primary_enhanced,
+                best_variant_name="raw_crop",
+                best_variant_image=cv2.cvtColor(enhanced_bgr, cv2.COLOR_BGR2GRAY),
             )
 
-        # 3. Comprehensive Multi-Variant evaluation for difficult / degraded / far-distance plates
-        variants = PlateImagePreprocessor.generate_all_variants(enhanced_crop)
+        # 3. Multi-Variant fallback for degraded/noisy plates
+        variants = PlateImagePreprocessor.generate_all_variants(enhanced_bgr)
         candidates = [
-            (raw_text, ocr_conf, norm_text, fmt_text, status, "fast_clahe", primary_enhanced),
-            (raw_text_2, ocr_conf_2, norm_text_2, fmt_text_2, status_2, "raw_enhanced", primary_enhanced),
+            (raw_text, ocr_conf, norm_text, fmt_text, status, "fast_clahe", enhanced_bgr),
+            (raw_text_2, ocr_conf_2, norm_text_2, fmt_text_2, status_2, "raw_crop", enhanced_bgr),
         ]
 
         for var_name, var_img in variants.items():
-            if len(var_img.shape) == 2:
-                v_bgr = cv2.cvtColor(var_img, cv2.COLOR_GRAY2BGR)
-            else:
-                v_bgr = var_img
-
+            v_bgr = cv2.cvtColor(var_img, cv2.COLOR_GRAY2BGR) if len(var_img.shape) == 2 else var_img
             t, c = self._run_rapidocr(v_bgr)
             if t:
                 nt, ft, st = normalize_indian_plate(t)
                 candidates.append((t, c, nt, ft, st, var_name, var_img))
 
-        # Select best candidate with weighted scoring (valid format bonus + OCR score + plate length)
+        # Select best candidate with weighted scoring
         best_candidate = None
         best_score = -1.0
 
@@ -181,8 +172,8 @@ class OCREngine:
             if not t and not nt:
                 continue
 
-            format_bonus = 1.0 if st == "valid" else (0.75 if st == "possible" else 0.4)
-            length_bonus = 1.0 if (8 <= len(nt) <= 11) else 0.6
+            format_bonus = 1.0 if st == "valid" else (0.70 if st == "possible" else 0.3)
+            length_bonus = 1.0 if (8 <= len(nt) <= 11) else 0.5
             score = (c * 0.5) + (format_bonus * 0.35) + (length_bonus * 0.15)
 
             if score > best_score:
@@ -207,8 +198,8 @@ class OCREngine:
             formatted_text=fmt_text or "",
             confidence=round(ocr_conf, 2),
             format_status=status or "uncertain",
-            best_variant_name="clahe_otsu",
-            best_variant_image=primary_enhanced,
+            best_variant_name="fast_clahe",
+            best_variant_image=cv2.cvtColor(enhanced_bgr, cv2.COLOR_BGR2GRAY),
         )
 
 

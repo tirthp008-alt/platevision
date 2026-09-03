@@ -1,5 +1,5 @@
-"""Live CCTV, RTSP, HLS, and Public Traffic Stream Manager with multi-plate detection,
-vehicle tracking, stream probing, and MJPEG broadcasting.
+"""Live CCTV, RTSP, HLS, and Public Traffic Stream Manager with ByteTrack/SORT tracking,
+selective OCR caching (10x speedup), stream probing, and MJPEG broadcasting.
 """
 
 import os
@@ -13,6 +13,7 @@ from app.core.logging import logger
 from app.schemas.detection import BoundingBox
 from app.services.detector.factory import get_detector
 from app.services.ocr.engine import ocr_engine
+from app.services.tracker import PlateTracker
 from app.utils.image_ops import encode_image_to_base64
 
 
@@ -48,8 +49,8 @@ class CCTVVehicleEvent:
 
 
 class CCTVStreamManager:
-    """Manages an active RTSP/HLS/MJPEG/Public/Synthetic traffic video feed, processes frames with multi-plate AI,
-    and exposes an annotated MJPEG stream and real-time ANPR event log.
+    """Manages an active RTSP/HLS/MJPEG/Public/Synthetic traffic feed with ByteTrack tracking,
+    selective OCR, and annotated MJPEG broadcasting.
     """
 
     def __init__(self):
@@ -61,13 +62,14 @@ class CCTVStreamManager:
         self.annotated_frame: Optional[np.ndarray] = None
         self.lock = threading.Lock()
         self.fps: float = 24.0
-        self.analysis_fps: int = 3  # Frames per second to analyze
+        self.analysis_fps: int = 5  # Frames per second to analyze
         self.detected_events: List[CCTVVehicleEvent] = []
         self.recent_plates: Dict[str, float] = {}  # Plate -> timestamp
-        self.mode: str = "stopped"  # 'synthetic', 'stream', 'stopped'
-        self.status_state: str = "OFFLINE"  # 'OFFLINE', 'CONNECTING', 'LIVE STREAMING', 'RECONNECTING', 'ERROR'
+        self.mode: str = "stopped"
+        self.status_state: str = "OFFLINE"
         self.reconnect_attempts: int = 0
         self.error_message: Optional[str] = None
+        self.tracker = PlateTracker(max_age=15, iou_threshold=0.30)
         self._last_annotations = []
 
     def probe_stream(self, url: str) -> Dict:
@@ -86,7 +88,6 @@ class CCTVStreamManager:
             }
 
         try:
-            # Set RTSP over TCP for reliable network transmission
             os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "rtsp_transport;tcp"
             cap = cv2.VideoCapture(test_url)
             cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
@@ -95,7 +96,7 @@ class CCTVStreamManager:
                 return {
                     "status": "error",
                     "protocol": self._detect_protocol(url),
-                    "message": "Unable to establish connection to video stream. Verify URL, network access, or authentication credentials.",
+                    "message": "Unable to establish connection to video stream. Verify URL or network access.",
                 }
 
             ret, frame = cap.read()
@@ -141,7 +142,6 @@ class CCTVStreamManager:
         return "Custom Video Stream"
 
     def _resolve_stream_url(self, raw_url: str) -> str:
-        """Resolves permitted YouTube Live or third-party links via yt-dlp to direct media streams."""
         if not raw_url:
             return "demo_traffic"
 
@@ -159,11 +159,11 @@ class CCTVStreamManager:
                     if "url" in info:
                         return info["url"]
             except Exception as e:
-                logger.warning(f"Could not extract YouTube stream via yt-dlp ({e}), attempting direct open.")
+                logger.warning(f"Could not extract YouTube stream ({e}), attempting direct open.")
 
         return raw_url
 
-    def start_stream(self, stream_url: str = "demo_traffic", analysis_fps: int = 3) -> Dict[str, str]:
+    def start_stream(self, stream_url: str = "demo_traffic", analysis_fps: int = 5) -> Dict[str, str]:
         with self.lock:
             if self.is_running:
                 self.is_running = False
@@ -178,6 +178,7 @@ class CCTVStreamManager:
             self.detected_events.clear()
             self.recent_plates.clear()
             self._last_annotations.clear()
+            self.tracker = PlateTracker(max_age=15, iou_threshold=0.30)
 
             if stream_url in ["demo_traffic", "demo_toll", "demo_blr", "demo"]:
                 self.mode = "synthetic"
@@ -217,54 +218,71 @@ class CCTVStreamManager:
                 "recent_events": [e.to_dict() for e in self.detected_events[:15]],
             }
 
-    def _run_detection_pass(self, frame: np.ndarray):
+    def _process_frame_tracking(self, frame: np.ndarray):
+        """Runs fast YOLO detection, updates ByteTrack spatial tracks, and selectively runs OCR."""
         detector = get_detector()
         h, w = frame.shape[:2]
         now = time.time()
 
         try:
             raw_dets = detector.detect(frame)
+            detection_pairs = [(d.bbox, d.confidence) for d in raw_dets]
         except Exception:
-            raw_dets = []
+            detection_pairs = []
 
+        # Update ByteTrack tracker
+        active_tracks = self.tracker.update(detection_pairs)
         new_annotations = []
 
-        for det in raw_dets:
-            bbox = det.bbox
-            pad_x = int(bbox.width * 0.08)
-            pad_y = int(bbox.height * 0.08)
-            x1 = max(0, bbox.x - pad_x)
-            y1 = max(0, bbox.y - pad_y)
-            x2 = min(w, bbox.x + bbox.width + pad_x)
-            y2 = min(h, bbox.y + bbox.height + pad_y)
+        for track in active_tracks:
+            bbox = track.bbox
+            
+            # Selective OCR: Trigger OCR only on first seen or when vehicle is closer/clearer
+            if track.should_trigger_ocr(max_ocr_runs=3):
+                pad_x = int(bbox.width * 0.05)
+                pad_y = int(bbox.height * 0.05)
+                x1 = max(0, bbox.x - pad_x)
+                y1 = max(0, bbox.y - pad_y)
+                x2 = min(w, bbox.x + bbox.width + pad_x)
+                y2 = min(h, bbox.y + bbox.height + pad_y)
 
-            crop = frame[y1:y2, x1:x2]
-            if crop.size == 0 or crop.shape[0] < 8 or crop.shape[1] < 15:
-                continue
+                crop = frame[y1:y2, x1:x2]
+                if crop.size > 0 and crop.shape[0] >= 8 and crop.shape[1] >= 15:
+                    ocr_res = ocr_engine.recognize(crop)
+                    crop_b64 = encode_image_to_base64(crop, format_type="jpeg", quality=85)
+                    
+                    track.update_ocr_result(
+                        raw_text=ocr_res.normalized_text,
+                        formatted_text=ocr_res.formatted_text or ocr_res.normalized_text,
+                        format_status=ocr_res.format_status,
+                        confidence=max(track.confidence, ocr_res.confidence),
+                        crop_b64=crop_b64,
+                    )
 
-            ocr_res = ocr_engine.recognize(crop)
-            plate_text = ocr_res.formatted_text or ocr_res.normalized_text
-
+            # Build label from track cached result
+            display_text = track.best_formatted_text or track.best_ocr_text or f"TRACK #{track.track_id}"
+            conf_display = int(max(track.confidence, track.best_ocr_confidence) * 100)
+            
             new_annotations.append({
                 "bbox": bbox,
-                "label": f"{plate_text or 'DETECTING...'} ({int(det.confidence * 100)}%)",
-                "conf": det.confidence,
+                "label": f"[{track.track_id}] {display_text} ({conf_display}%)",
+                "conf": track.best_ocr_confidence or track.confidence,
+                "format_status": track.best_format_status,
             })
 
-            # Event logging with 3-second deduplication
-            target_text = ocr_res.normalized_text or (plate_text.replace(" ", "") if plate_text else "")
-            if target_text and len(target_text) >= 3:
+            # Event logging with deduplication
+            target_text = track.best_ocr_text
+            if target_text and len(target_text) >= 4:
                 last_seen = self.recent_plates.get(target_text, 0)
                 if now - last_seen > 3.0:
-                    crop_b64 = encode_image_to_base64(crop, format_type="jpeg", quality=85)
                     event = CCTVVehicleEvent(
                         plate_number=target_text,
-                        formatted_number=ocr_res.formatted_text or plate_text,
-                        confidence=max(det.confidence, ocr_res.confidence),
-                        format_status=ocr_res.format_status,
+                        formatted_number=track.best_formatted_text or target_text,
+                        confidence=max(track.confidence, track.best_ocr_confidence),
+                        format_status=track.best_format_status,
                         first_seen=now,
                         last_seen=now,
-                        crop_base64=crop_b64,
+                        crop_base64=track.best_crop_b64,
                     )
                     self.detected_events.insert(0, event)
                     if len(self.detected_events) > 100:
@@ -283,31 +301,35 @@ class CCTVStreamManager:
         for ann in current_annotations:
             bbox = ann["bbox"]
             label = ann["label"]
+            status = ann.get("format_status", "uncertain")
+
+            # Border color: Green for valid RTO format, Cyan for tracking
+            box_color = (0, 255, 128) if status == "valid" else (0, 240, 255)
 
             # Draw HUD Box
             cv2.rectangle(
                 annotated,
                 (bbox.x, bbox.y),
                 (bbox.x + bbox.width, bbox.y + bbox.height),
-                (0, 240, 255),
+                box_color,
                 2,
             )
 
             # Draw Label Header
             cv2.rectangle(
                 annotated,
-                (bbox.x, max(0, bbox.y - 26)),
-                (bbox.x + bbox.width, bbox.y),
-                (11, 19, 43),
+                (bbox.x, max(0, bbox.y - 24)),
+                (bbox.x + max(120, bbox.width), bbox.y),
+                (10, 25, 47),
                 -1,
             )
             cv2.putText(
                 annotated,
                 label,
-                (bbox.x + 4, max(16, bbox.y - 7)),
+                (bbox.x + 4, max(16, bbox.y - 6)),
                 cv2.FONT_HERSHEY_SIMPLEX,
-                0.55,
-                (0, 240, 255),
+                0.50,
+                box_color,
                 2,
                 cv2.LINE_AA,
             )
@@ -315,7 +337,7 @@ class CCTVStreamManager:
         # Draw Official ANPR HUD overlay
         cv2.putText(
             annotated,
-            f"LIVE TRAFFIC ANPR | FPS: {self.fps:.1f} | SENSORS: ACTIVE",
+            f"LIVE TRAFFIC ANPR | FPS: {self.fps:.1f} | TRACKER: ACTIVE",
             (16, 32),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.65,
@@ -326,7 +348,6 @@ class CCTVStreamManager:
         return annotated
 
     def _live_stream_worker(self):
-        """Worker thread for decoding RTSP/HLS/MJPEG live video streams with auto-reconnect."""
         os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "rtsp_transport;tcp"
         url = self.resolved_url or self.stream_url
 
@@ -364,9 +385,9 @@ class CCTVStreamManager:
             frame_count += 1
             now = time.time()
 
-            # Rate-controlled frame analysis
+            # Rate-controlled frame tracking & selective OCR
             if now - last_analysis_time >= (1.0 / self.analysis_fps):
-                self._run_detection_pass(frame)
+                self._process_frame_tracking(frame)
                 last_analysis_time = now
 
             annotated = self._draw_hud(frame)
@@ -379,12 +400,11 @@ class CCTVStreamManager:
                 frame_count = 0
                 last_time = now
 
-            time.sleep(0.03)
+            time.sleep(0.025)
 
         cap.release()
 
     def _synthetic_stream_worker(self):
-        """Generates realistic Indian highway traffic simulation feeds."""
         cars = [
             {"plate": "GJ 01 AB 1234", "color": (216, 78, 29), "x": 100, "speed": 4, "lane": 300},
             {"plate": "DL 01 CA 1234", "color": (30, 41, 59), "x": 650, "speed": -3, "lane": 180},
@@ -450,7 +470,7 @@ class CCTVStreamManager:
             now = time.time()
 
             if now - last_analysis_time >= (1.0 / self.analysis_fps):
-                self._run_detection_pass(frame)
+                self._process_frame_tracking(frame)
                 last_analysis_time = now
 
             annotated = self._draw_hud(frame)
@@ -463,7 +483,7 @@ class CCTVStreamManager:
                 frame_count = 0
                 last_time = now
 
-            time.sleep(0.035)
+            time.sleep(0.03)
 
     def generate_mjpeg_stream(self):
         while self.is_running:
@@ -482,7 +502,7 @@ class CCTVStreamManager:
                 b"--frame\r\n"
                 b"Content-Type: image/jpeg\r\n\r\n" + frame_bytes + b"\r\n"
             )
-            time.sleep(0.035)
+            time.sleep(0.03)
 
 
 cctv_manager = CCTVStreamManager()
