@@ -1,5 +1,6 @@
-"""Production-grade Multi-Plate YOLOv8 ONNX Detector with multi-scale coverage,
-high recall, geometric validation, and sub-30ms execution.
+"""Production-grade Multi-Scale Tiled (SAHI-style) YOLOv8 ONNX Plate Detector.
+Captures all two-wheelers, motorcycles, distant vehicles, and multi-vehicle traffic scenes
+by combining full-frame global inference with high-resolution overlapping tile slices.
 """
 
 import os
@@ -31,7 +32,7 @@ def compute_iou(b1: BoundingBox, b2: BoundingBox) -> float:
 
 
 class OnnxPlateDetector(BasePlateDetector):
-    """High-accuracy, high-speed multi-plate ONNX YOLOv8 detector."""
+    """High-accuracy multi-scale tiled ONNX YOLOv8 detector for cars, two-wheelers & distant plates."""
 
     def __init__(self, model_path: str = None):
         self.model_path = model_path or settings.ONNX_MODEL_PATH
@@ -94,9 +95,9 @@ class OnnxPlateDetector(BasePlateDetector):
         return img, r, (int(round(dw)), int(round(dh)))
 
     def _infer_yolo(
-        self, image_bgr: np.ndarray, conf_threshold: float = 0.14, iou_threshold: float = 0.40
+        self, image_bgr: np.ndarray, conf_threshold: float = 0.10, iou_threshold: float = 0.40
     ) -> List[Tuple[BoundingBox, float]]:
-        if not self.session:
+        if not self.session or image_bgr is None or image_bgr.size == 0:
             return []
 
         orig_h, orig_w = image_bgr.shape[:2]
@@ -138,9 +139,9 @@ class OnnxPlateDetector(BasePlateDetector):
                 w_clamped = max(1, min(orig_w - x1_clamped, int(w_orig)))
                 h_clamped = max(1, min(orig_h - y1_clamped, int(h_orig)))
 
-                # Geometric validation: supports single-line & double-line Indian plates
+                # Geometric validation: supports two-wheelers (square/small) & cars (rectangular)
                 aspect = w_clamped / float(h_clamped) if h_clamped > 0 else 0
-                if 1.1 <= aspect <= 7.0 and w_clamped >= 18 and h_clamped >= 8:
+                if 1.0 <= aspect <= 7.5 and w_clamped >= 12 and h_clamped >= 6:
                     boxes.append([x1_clamped, y1_clamped, w_clamped, h_clamped])
                     confidences.append(float(max_score))
 
@@ -160,39 +161,61 @@ class OnnxPlateDetector(BasePlateDetector):
         if not self.is_ready():
             raise RuntimeError("ONNX Plate Detector is not initialized.")
 
-        # 1. Primary Full-Frame YOLOv8 Multi-Plate Detection
-        candidates = self._infer_yolo(image_bgr, conf_threshold=0.14, iou_threshold=0.40)
-
-        # 2. Multi-Scale Distant Vehicle Zoom Pass:
-        # Check center region to catch distant, small or low-contrast plates
         h, w = image_bgr.shape[:2]
-        if w >= 800 or h >= 600 or len(candidates) == 0:
-            crop_w = int(w * 0.70)
-            crop_h = int(h * 0.70)
-            x_offset = int((w - crop_w) / 2)
-            y_offset = int((h - crop_h) / 2)
+        all_candidates: List[Tuple[BoundingBox, float]] = []
 
-            center_crop = image_bgr[y_offset : y_offset + crop_h, x_offset : x_offset + crop_w]
-            zoom_candidates = self._infer_yolo(center_crop, conf_threshold=0.14, iou_threshold=0.35)
+        # 1. Global Full-Image Pass (catches nearby/large vehicles)
+        global_dets = self._infer_yolo(image_bgr, conf_threshold=0.10, iou_threshold=0.40)
+        all_candidates.extend(global_dets)
 
-            for bbox, conf in zoom_candidates:
-                full_bbox = BoundingBox(
-                    x=bbox.x + x_offset,
-                    y=bbox.y + y_offset,
-                    width=bbox.width,
-                    height=bbox.height,
-                )
-                # Deduplicate against existing candidate boxes using IoU
-                if not any(compute_iou(full_bbox, ex_box) > 0.35 for ex_box, _ in candidates):
-                    candidates.append((full_bbox, conf))
+        # 2. Multi-Scale Overlapping Tiles for High-Resolution Scenes:
+        # Slices image into 4 overlapping quadrants (magnifying small two-wheeler & motorcycle plates by 2x-3x)
+        if w >= 640 or h >= 480:
+            tile_h = int(h * 0.60)
+            tile_w = int(w * 0.60)
 
-        if not candidates:
+            # 4 Corner Tiles + 1 Center Tile
+            tiles_coords = [
+                (0, 0),  # Top-Left
+                (0, w - tile_w),  # Top-Right
+                (h - tile_h, 0),  # Bottom-Left
+                (h - tile_h, w - tile_w),  # Bottom-Right
+                (int((h - tile_h) / 2), int((w - tile_w) / 2)),  # Center Zoom
+            ]
+
+            for y0, x0 in tiles_coords:
+                tile = image_bgr[y0 : y0 + tile_h, x0 : x0 + tile_w]
+                tile_dets = self._infer_yolo(tile, conf_threshold=0.10, iou_threshold=0.35)
+
+                for tb, tc in tile_dets:
+                    mapped_box = BoundingBox(
+                        x=tb.x + x0,
+                        y=tb.y + y0,
+                        width=tb.width,
+                        height=tb.height,
+                    )
+                    # Check deduplication against existing candidates
+                    if not any(compute_iou(mapped_box, ex_b) > 0.35 for ex_b, _ in all_candidates):
+                        all_candidates.append((mapped_box, tc))
+
+        if not all_candidates:
             return []
 
-        # Sort left-to-right, top-to-bottom
-        candidates.sort(key=lambda item: (item[0].y // 60, item[0].x))
+        # 3. Global NMS Merge & Spatial Ordering
+        boxes_list = [[b.x, b.y, b.width, b.height] for b, _ in all_candidates]
+        confs_list = [c for _, c in all_candidates]
+
+        indices = cv2.dnn.NMSBoxes(boxes_list, confs_list, 0.10, 0.35)
+        merged: List[Tuple[BoundingBox, float]] = []
+        if len(indices) > 0:
+            for idx in indices.flatten():
+                b = boxes_list[idx]
+                merged.append((BoundingBox(x=b[0], y=b[1], width=b[2], height=b[3]), confs_list[idx]))
+
+        # Sort spatially: left-to-right, top-to-bottom
+        merged.sort(key=lambda item: (item[0].y // 60, item[0].x))
 
         return [
             RawDetection(bbox=box, confidence=round(conf, 2))
-            for box, conf in candidates[:20]
+            for box, conf in merged[:25]
         ]
