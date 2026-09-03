@@ -1,6 +1,5 @@
-"""Production-grade YOLOv8 ONNX License Plate Detector.
-Features fast 640x640 letterbox inference, dual-pass distant vehicle zoom,
-aspect-ratio geometric filtering, and sub-30ms execution.
+"""Production-grade Multi-Plate YOLOv8 ONNX Detector with multi-scale coverage,
+high recall, geometric validation, and sub-30ms execution.
 """
 
 import os
@@ -14,8 +13,25 @@ from app.schemas.detection import BoundingBox
 from app.services.detector.base import BasePlateDetector, RawDetection
 
 
+def compute_iou(b1: BoundingBox, b2: BoundingBox) -> float:
+    x1 = max(b1.x, b2.x)
+    y1 = max(b1.y, b2.y)
+    x2 = min(b1.x + b1.width, b2.x + b2.width)
+    y2 = min(b1.y + b1.height, b2.y + b2.height)
+
+    inter_w = max(0, x2 - x1)
+    inter_h = max(0, y2 - y1)
+    inter_area = inter_w * inter_h
+
+    b1_area = b1.width * b1.height
+    b2_area = b2.width * b2.height
+    union_area = b1_area + b2_area - inter_area
+
+    return inter_area / float(union_area) if union_area > 0 else 0.0
+
+
 class OnnxPlateDetector(BasePlateDetector):
-    """High-accuracy, high-speed ONNX YOLOv8 license plate detector."""
+    """High-accuracy, high-speed multi-plate ONNX YOLOv8 detector."""
 
     def __init__(self, model_path: str = None):
         self.model_path = model_path or settings.ONNX_MODEL_PATH
@@ -78,9 +94,8 @@ class OnnxPlateDetector(BasePlateDetector):
         return img, r, (int(round(dw)), int(round(dh)))
 
     def _infer_yolo(
-        self, image_bgr: np.ndarray, conf_threshold: float = 0.25, iou_threshold: float = 0.45
+        self, image_bgr: np.ndarray, conf_threshold: float = 0.14, iou_threshold: float = 0.40
     ) -> List[Tuple[BoundingBox, float]]:
-        """Runs fast YOLOv8 inference with letterboxing and NMS filtering."""
         if not self.session:
             return []
 
@@ -123,9 +138,9 @@ class OnnxPlateDetector(BasePlateDetector):
                 w_clamped = max(1, min(orig_w - x1_clamped, int(w_orig)))
                 h_clamped = max(1, min(orig_h - y1_clamped, int(h_orig)))
 
-                # Geometric validation: License plates have standard rectangular aspect ratios
+                # Geometric validation: supports single-line & double-line Indian plates
                 aspect = w_clamped / float(h_clamped) if h_clamped > 0 else 0
-                if 1.4 <= aspect <= 6.5 and w_clamped >= 20 and h_clamped >= 8:
+                if 1.1 <= aspect <= 7.0 and w_clamped >= 18 and h_clamped >= 8:
                     boxes.append([x1_clamped, y1_clamped, w_clamped, h_clamped])
                     confidences.append(float(max_score))
 
@@ -145,30 +160,31 @@ class OnnxPlateDetector(BasePlateDetector):
         if not self.is_ready():
             raise RuntimeError("ONNX Plate Detector is not initialized.")
 
-        # 1. Primary Full-Frame YOLOv8 Detection Pass
-        candidates = self._infer_yolo(image_bgr, conf_threshold=0.25, iou_threshold=0.45)
+        # 1. Primary Full-Frame YOLOv8 Multi-Plate Detection
+        candidates = self._infer_yolo(image_bgr, conf_threshold=0.14, iou_threshold=0.40)
 
-        # 2. Dual-Pass Zoom: If no plates detected in full frame, zoom into center 65% area (far distance catch)
-        if not candidates:
-            h, w = image_bgr.shape[:2]
-            crop_w = int(w * 0.65)
-            crop_h = int(h * 0.65)
+        # 2. Multi-Scale Distant Vehicle Zoom Pass:
+        # Check center region to catch distant, small or low-contrast plates
+        h, w = image_bgr.shape[:2]
+        if w >= 800 or h >= 600 or len(candidates) == 0:
+            crop_w = int(w * 0.70)
+            crop_h = int(h * 0.70)
             x_offset = int((w - crop_w) / 2)
             y_offset = int((h - crop_h) / 2)
 
             center_crop = image_bgr[y_offset : y_offset + crop_h, x_offset : x_offset + crop_w]
-            zoom_candidates = self._infer_yolo(center_crop, conf_threshold=0.20, iou_threshold=0.40)
+            zoom_candidates = self._infer_yolo(center_crop, conf_threshold=0.14, iou_threshold=0.35)
 
             for bbox, conf in zoom_candidates:
-                candidates.append((
-                    BoundingBox(
-                        x=bbox.x + x_offset,
-                        y=bbox.y + y_offset,
-                        width=bbox.width,
-                        height=bbox.height,
-                    ),
-                    conf,
-                ))
+                full_bbox = BoundingBox(
+                    x=bbox.x + x_offset,
+                    y=bbox.y + y_offset,
+                    width=bbox.width,
+                    height=bbox.height,
+                )
+                # Deduplicate against existing candidate boxes using IoU
+                if not any(compute_iou(full_bbox, ex_box) > 0.35 for ex_box, _ in candidates):
+                    candidates.append((full_bbox, conf))
 
         if not candidates:
             return []
@@ -178,5 +194,5 @@ class OnnxPlateDetector(BasePlateDetector):
 
         return [
             RawDetection(bbox=box, confidence=round(conf, 2))
-            for box, conf in candidates[:15]
+            for box, conf in candidates[:20]
         ]

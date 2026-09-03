@@ -73,9 +73,7 @@ def process_image_pipeline(
         ocr_res = ocr_engine.recognize(crop_bgr)
 
         # Verification: If no alphanumeric text was recognized and detection confidence is low, skip false positive
-        if not ocr_res.normalized_text and raw_det.confidence < 0.50:
-            continue
-        if ocr_res.normalized_text and len(ocr_res.normalized_text) < 3 and raw_det.confidence < 0.50:
+        if not ocr_res.normalized_text and raw_det.confidence < 0.20:
             continue
 
         # Deduplication check against already confirmed detections
