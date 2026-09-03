@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 218 60% 8%;
+    --foreground: 210 40% 98%;
+    --card: 218 55% 12%;
+    --card-foreground: 210 40% 98%;
+    --popover: 218 55% 12%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 28 100% 60%;
+    --primary-foreground: 222 47% 6%;
+    --secondary: 215 35% 18%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 30% 20%;
+    --muted-foreground: 215 20% 70%;
+    --accent: 28 100% 60%;
+    --accent-foreground: 222 47% 6%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 215 35% 24%;
+    --input: 215 35% 24%;
+    --ring: 28 100% 60%;
+    --radius: 0.75rem;
+  }
+
+  .high-contrast {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 100%;
+    --border: 0 0% 40%;
+    --primary: 38 100% 50%;
+    --accent: 38 100% 50%;
+  }
+
+  .light {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 28 100% 50%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 94%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 28 100% 50%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214 32% 85%;
+    --input: 214 32% 85%;
+    --ring: 28 100% 50%;
+  }
+}
+
+body {
+  @apply bg-gov-navy text-slate-100 antialiased min-h-screen selection:bg-gov-saffron selection:text-gov-navy;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(30, 58, 138, 0.25), transparent),
+    radial-gradient(circle at 100% 100%, rgba(255, 153, 51, 0.04), transparent);
+  background-attachment: fixed;
+}
+
+/* Indian National Tricolor Header Accent Ribbon */
+.tricolor-stripe {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    #ff9933 0%,
+    #ff9933 33.33%,
+    #ffffff 33.33%,
+    #ffffff 66.66%,
+    #138808 66.66%,
+    #138808 100%
+  );
+}
+
+/* Formal Header Badge */
+.gov-badge {
+  @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-mono font-bold tracking-wide uppercase;
+}
+
+/* Safe area insets for mobile notched devices */
+.safe-area-pb {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a192f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e3a5f;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff9933;
+}
