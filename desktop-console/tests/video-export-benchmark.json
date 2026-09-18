@@ -1,0 +1,203 @@
+[
+  {
+    "id": "8d59ecda3b724affbd163b50c6c6f665",
+    "status": "complete",
+    "progress": 100,
+    "phase": "Ready to play",
+    "fps": 5.0,
+    "width": 1280,
+    "height": 372,
+    "total_frames": 20,
+    "engine": "OpenVINO GPU",
+    "profile": "fast",
+    "source_duration_seconds": 4.0,
+    "frames_processed": 20,
+    "detection_ms": {
+      "p50": 30.47,
+      "p95": 44.15
+    },
+    "frame_ms": 37.46,
+    "video_url": "/api/videos/8d59ecda3b724affbd163b50c6c6f665/video",
+    "report_url": "/api/videos/8d59ecda3b724affbd163b50c6c6f665/report",
+    "frames": 20,
+    "decode_detect_track_ms": {
+      "p50": 35.81,
+      "p95": 50.74
+    },
+    "ocr_total_ms": 355.95,
+    "render_total_ms": 162.62,
+    "total_ms": 1716.62,
+    "processing_ms_per_frame": 85.83,
+    "detection_phase_ms": 1129.44,
+    "tracks": [
+      {
+        "id": 1,
+        "text": "OD02BG1396",
+        "ocr_confidence": 0.9708551585674285,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/8d59ecda3b724affbd163b50c6c6f665/crops/1"
+      },
+      {
+        "id": 2,
+        "text": "OD11H7299",
+        "ocr_confidence": 0.9520951888777993,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/8d59ecda3b724affbd163b50c6c6f665/crops/2"
+      },
+      {
+        "id": 3,
+        "text": "0D028J0758",
+        "ocr_confidence": 0.9683719456195832,
+        "format_status": "possible",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/8d59ecda3b724affbd163b50c6c6f665/crops/3"
+      }
+    ],
+    "all_frames_detected": true,
+    "weights_retrained": false,
+    "note": "Final track readings are applied retrospectively. OCR and export are included in the overall processing average.",
+    "upload_poll_download_wall_ms": 1840.27
+  },
+  {
+    "id": "623428ea2f7e4296a06b4cf31626bd83",
+    "status": "complete",
+    "progress": 100,
+    "phase": "Ready to play",
+    "fps": 5.0,
+    "width": 1280,
+    "height": 372,
+    "total_frames": 20,
+    "engine": "OpenVINO GPU",
+    "profile": "fast",
+    "source_duration_seconds": 4.0,
+    "frames_processed": 20,
+    "detection_ms": {
+      "p50": 26.14,
+      "p95": 31.19
+    },
+    "frame_ms": 27.98,
+    "video_url": "/api/videos/623428ea2f7e4296a06b4cf31626bd83/video",
+    "report_url": "/api/videos/623428ea2f7e4296a06b4cf31626bd83/report",
+    "frames": 20,
+    "decode_detect_track_ms": {
+      "p50": 31.21,
+      "p95": 36.48
+    },
+    "ocr_total_ms": 334.68,
+    "render_total_ms": 173.73,
+    "total_ms": 1188.69,
+    "processing_ms_per_frame": 59.43,
+    "detection_phase_ms": 662.5,
+    "tracks": [
+      {
+        "id": 1,
+        "text": "OD02BG1396",
+        "ocr_confidence": 0.9708551585674285,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/623428ea2f7e4296a06b4cf31626bd83/crops/1"
+      },
+      {
+        "id": 2,
+        "text": "OD11H7299",
+        "ocr_confidence": 0.9520951888777993,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/623428ea2f7e4296a06b4cf31626bd83/crops/2"
+      },
+      {
+        "id": 3,
+        "text": "0D028J0758",
+        "ocr_confidence": 0.9683719456195832,
+        "format_status": "possible",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/623428ea2f7e4296a06b4cf31626bd83/crops/3"
+      }
+    ],
+    "all_frames_detected": true,
+    "weights_retrained": false,
+    "note": "Final track readings are applied retrospectively. OCR and export are included in the overall processing average.",
+    "upload_poll_download_wall_ms": 1314.11
+  },
+  {
+    "id": "1ab53d16443b4d29ab0152110caca633",
+    "status": "complete",
+    "progress": 100,
+    "phase": "Ready to play",
+    "fps": 5.0,
+    "width": 1280,
+    "height": 372,
+    "total_frames": 20,
+    "engine": "OpenVINO GPU",
+    "profile": "fast",
+    "source_duration_seconds": 4.0,
+    "frames_processed": 20,
+    "detection_ms": {
+      "p50": 31.1,
+      "p95": 33.13
+    },
+    "frame_ms": 35.62,
+    "video_url": "/api/videos/1ab53d16443b4d29ab0152110caca633/video",
+    "report_url": "/api/videos/1ab53d16443b4d29ab0152110caca633/report",
+    "frames": 20,
+    "decode_detect_track_ms": {
+      "p50": 36.56,
+      "p95": 39.81
+    },
+    "ocr_total_ms": 343.51,
+    "render_total_ms": 158.67,
+    "total_ms": 1270.03,
+    "processing_ms_per_frame": 63.5,
+    "detection_phase_ms": 753.09,
+    "tracks": [
+      {
+        "id": 1,
+        "text": "OD02BG1396",
+        "ocr_confidence": 0.9708551585674285,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/1ab53d16443b4d29ab0152110caca633/crops/1"
+      },
+      {
+        "id": 2,
+        "text": "OD11H7299",
+        "ocr_confidence": 0.9520951888777993,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/1ab53d16443b4d29ab0152110caca633/crops/2"
+      },
+      {
+        "id": 3,
+        "text": "0D028J0758",
+        "ocr_confidence": 0.9683719456195832,
+        "format_status": "possible",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/1ab53d16443b4d29ab0152110caca633/crops/3"
+      }
+    ],
+    "all_frames_detected": true,
+    "weights_retrained": false,
+    "note": "Final track readings are applied retrospectively. OCR and export are included in the overall processing average.",
+    "upload_poll_download_wall_ms": 1467.76
+  }
+]

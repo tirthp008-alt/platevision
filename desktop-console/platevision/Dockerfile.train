@@ -1,0 +1,6 @@
+FROM python:3.12-slim
+WORKDIR /workspace
+COPY training-requirements.txt .
+RUN pip install --no-cache-dir -r training-requirements.txt
+COPY scripts ./scripts
+CMD ["python", "scripts/train_detector.py"]

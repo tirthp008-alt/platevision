@@ -1,0 +1,19 @@
+{
+  "recording": "multi-plate-video.webm",
+  "browser": "Codex in-app browser",
+  "checks": {
+    "upload": true,
+    "pause": true,
+    "resume": true,
+    "completed_samples": 9,
+    "expected_samples": 9,
+    "plate_tracks": 3,
+    "observations_per_track": [
+      9,
+      9,
+      9
+    ],
+    "console_errors": []
+  },
+  "note": "Verified through the browser UI. One of three OCR readings remains uncertain; this is a functional composite fixture, not a real-world accuracy claim."
+}

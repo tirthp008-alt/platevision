@@ -1,0 +1,16 @@
+services:
+  api:
+    build: ./backend
+    ports: ["8000:8000"]
+    volumes: ["./models:/models:ro"]
+    environment:
+      DETECTOR_MODE: onnx
+      MODEL_PATH: /models/plate-detector.onnx
+      VEHICLE_MODEL_PATH: ${VEHICLE_MODEL_PATH:-/models/vehicle-detector.onnx}
+      CORS_ORIGINS: http://localhost:3000,http://localhost:8080
+  web:
+    image: node:22-alpine
+    working_dir: /app
+    volumes: ["./frontend:/app"]
+    command: sh -c "npm install && npm run dev"
+    ports: ["3000:3000"]

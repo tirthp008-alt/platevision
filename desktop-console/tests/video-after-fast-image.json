@@ -1,0 +1,71 @@
+[
+  {
+    "id": "4dea6587551d41938288fbe83dd3c4ea",
+    "status": "complete",
+    "progress": 100,
+    "phase": "Ready to play",
+    "fps": 5.0,
+    "width": 1280,
+    "height": 372,
+    "total_frames": 20,
+    "engine": "OpenVINO GPU",
+    "profile": "fast",
+    "source_duration_seconds": 4.0,
+    "frames_processed": 20,
+    "detection_ms": {
+      "p50": 19.39,
+      "p95": 23.26
+    },
+    "frame_ms": 25.07,
+    "video_url": "/api/videos/4dea6587551d41938288fbe83dd3c4ea/video",
+    "report_url": "/api/videos/4dea6587551d41938288fbe83dd3c4ea/report",
+    "frames": 20,
+    "decode_detect_track_ms": {
+      "p50": 23.46,
+      "p95": 28.27
+    },
+    "ocr_total_ms": 270.19,
+    "render_total_ms": 131.62,
+    "total_ms": 4364.61,
+    "paused_ms": 0.0,
+    "wall_ms": 4364.61,
+    "processing_ms_per_frame": 218.23,
+    "detection_phase_ms": 508.57,
+    "tracks": [
+      {
+        "id": 1,
+        "text": "OD02BG1396",
+        "ocr_confidence": 0.9708551585674285,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/4dea6587551d41938288fbe83dd3c4ea/crops/1"
+      },
+      {
+        "id": 2,
+        "text": "OD11H7299",
+        "ocr_confidence": 0.9520951888777993,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/4dea6587551d41938288fbe83dd3c4ea/crops/2"
+      },
+      {
+        "id": 3,
+        "text": "0D028J0758",
+        "ocr_confidence": 0.9683719456195832,
+        "format_status": "possible",
+        "first_seen": 0.0,
+        "last_seen": 3.8,
+        "observations": 20,
+        "crop_url": "/api/videos/4dea6587551d41938288fbe83dd3c4ea/crops/3"
+      }
+    ],
+    "all_frames_searched": true,
+    "weights_retrained": false,
+    "note": "Final track readings are applied retrospectively. OCR and export are included in the overall processing average.",
+    "upload_poll_download_wall_ms": 4519.89
+  }
+]

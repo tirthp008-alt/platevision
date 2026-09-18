@@ -1,0 +1,313 @@
+{
+  "scenes": [
+    {
+      "file": "vid-3_frame-1075.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 3
+    },
+    {
+      "file": "vid-3_frame-1110.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 3
+    },
+    {
+      "file": "vid-3_frame-1345.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 3
+    },
+    {
+      "file": "vid-3_frame-150.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-1550.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0
+    },
+    {
+      "file": "vid-3_frame-1575.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-1725.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 3
+    },
+    {
+      "file": "vid-3_frame-1800.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 4
+    },
+    {
+      "file": "vid-3_frame-1860.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-1880.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-190.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 7
+    },
+    {
+      "file": "vid-3_frame-1915.jpg",
+      "labelled": 3,
+      "matched": 1,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-2245.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-225.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-2340.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-2375.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 4
+    },
+    {
+      "file": "vid-3_frame-2475.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0
+    },
+    {
+      "file": "vid-3_frame-2480.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-260.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-2600.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 3
+    },
+    {
+      "file": "vid-3_frame-2610.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-2665.jpg",
+      "labelled": 3,
+      "matched": 1,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-2735.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 0
+    },
+    {
+      "file": "vid-3_frame-2785.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-3000.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-3055.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-3115.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-3135.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-3155.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-325.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-3305.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-3310.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 3
+    },
+    {
+      "file": "vid-3_frame-3320.jpg",
+      "labelled": 3,
+      "matched": 1,
+      "predicted": 4
+    },
+    {
+      "file": "vid-3_frame-3440.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-3570.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0
+    },
+    {
+      "file": "vid-3_frame-3575.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0
+    },
+    {
+      "file": "vid-3_frame-3735.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-3775.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 3
+    },
+    {
+      "file": "vid-3_frame-3890.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-3895.jpg",
+      "labelled": 3,
+      "matched": 1,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-3935.jpg",
+      "labelled": 3,
+      "matched": 1,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-3980.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-415.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-490.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 4
+    },
+    {
+      "file": "vid-3_frame-5.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-520.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-560.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 2
+    },
+    {
+      "file": "vid-3_frame-630.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-720.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 1
+    },
+    {
+      "file": "vid-3_frame-835.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1
+    }
+  ],
+  "images": 50,
+  "iou_threshold": 0.5,
+  "confidence_threshold": 0.35,
+  "true_positives": 33,
+  "false_positives": 61,
+  "false_negatives": 51,
+  "precision": 0.35106382978723405,
+  "recall": 0.39285714285714285,
+  "note": "Bounding boxes only; does not measure text recognition accuracy. Plate-first whole-image/tiled search; diagnostic set used during development, not an independent final evaluation."
+}

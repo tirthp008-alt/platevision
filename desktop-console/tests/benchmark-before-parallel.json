@@ -1,0 +1,223 @@
+{
+  "sample_count": 20,
+  "timings_ms": {
+    "total": {
+      "p50": 136.19,
+      "p95": 207.32250000000002
+    },
+    "detection": {
+      "p50": 120.70500000000001,
+      "p95": 207.3025
+    },
+    "ocr": {
+      "p50": 0.0,
+      "p95": 30.758000000000038
+    }
+  },
+  "results": [
+    {
+      "file": "platevision\\data\\indian-plates\\vid-1\\frame-1235.jpg",
+      "total": 164.95,
+      "detection": 164.93,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 3,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-1\\frame-2010.jpg",
+      "total": 136.93,
+      "detection": 136.91,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 2,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-1\\frame-2540.jpg",
+      "total": 147.94,
+      "detection": 131.06,
+      "ocr": 16.28,
+      "plates": 1,
+      "vehicles": 3,
+      "text": [
+        ""
+      ]
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-1\\frame-2925.jpg",
+      "total": 126.76,
+      "detection": 126.74,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 1,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-1\\frame-3490.jpg",
+      "total": 137.36,
+      "detection": 122.26,
+      "ocr": 14.9,
+      "plates": 1,
+      "vehicles": 3,
+      "text": [
+        "OD02BE8497"
+      ]
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-1\\frame-65.jpg",
+      "total": 119.66,
+      "detection": 119.64,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 4,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-2\\frame-1510.jpg",
+      "total": 147.83,
+      "detection": 119.16,
+      "ocr": 28.28,
+      "plates": 2,
+      "vehicles": 5,
+      "text": [
+        "0X550",
+        "BICHER"
+      ]
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-2\\frame-2035.jpg",
+      "total": 115.52,
+      "detection": 115.5,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 1,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-2\\frame-2550.jpg",
+      "total": 130.09,
+      "detection": 115.68,
+      "ocr": 14.21,
+      "plates": 1,
+      "vehicles": 4,
+      "text": [
+        "KA03MH3805"
+      ]
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-2\\frame-3305.jpg",
+      "total": 117.87,
+      "detection": 117.86,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 1,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-2\\frame-3815.jpg",
+      "total": 135.37,
+      "detection": 120.9,
+      "ocr": 14.23,
+      "plates": 1,
+      "vehicles": 3,
+      "text": [
+        "002AL0918"
+      ]
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-2\\frame-4475.jpg",
+      "total": 117.07,
+      "detection": 117.05,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 5,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-2\\frame-4995.jpg",
+      "total": 135.45,
+      "detection": 120.51,
+      "ocr": 14.75,
+      "plates": 1,
+      "vehicles": 1,
+      "text": [
+        ""
+      ]
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-2\\frame-720.jpg",
+      "total": 131.46,
+      "detection": 117.09,
+      "ocr": 14.19,
+      "plates": 1,
+      "vehicles": 3,
+      "text": [
+        "KB06L4277"
+      ]
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-3\\frame-1345.jpg",
+      "total": 133.91,
+      "detection": 119.32,
+      "ocr": 14.38,
+      "plates": 1,
+      "vehicles": 3,
+      "text": [
+        "0005AF0371"
+      ]
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-3\\frame-190.jpg",
+      "total": 199.01,
+      "detection": 120.03,
+      "ocr": 77.84,
+      "plates": 5,
+      "vehicles": 5,
+      "text": [
+        "HOD02BC1048",
+        "",
+        "PR0CEED",
+        "",
+        ""
+      ]
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-3\\frame-260.jpg",
+      "total": 206.69,
+      "detection": 206.67,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 3,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-3\\frame-3115.jpg",
+      "total": 219.34,
+      "detection": 219.32,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 1,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-3\\frame-3570.jpg",
+      "total": 188.12,
+      "detection": 188.1,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 1,
+      "text": []
+    },
+    {
+      "file": "platevision\\data\\indian-plates\\vid-3\\frame-415.jpg",
+      "total": 184.51,
+      "detection": 184.49,
+      "ocr": 0,
+      "plates": 0,
+      "vehicles": 3,
+      "text": []
+    }
+  ],
+  "accuracy": "Not established; plate text ground truth is unavailable."
+}

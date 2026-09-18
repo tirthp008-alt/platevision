@@ -1,0 +1,9 @@
+[
+  {
+    "case": "three_vehicle_composite",
+    "regions": 3,
+    "text_readings": 3,
+    "vehicle_inference": false,
+    "processing_time_ms": 262.31
+  }
+]

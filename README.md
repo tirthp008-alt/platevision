@@ -1,3 +1,11 @@
+## GPU desktop console
+
+The locally tested PlateSight implementation is available in [`desktop-console/`](desktop-console/README.md), including GPU multi-plate detection, batched OCR, confidence displays, and annotated video export. It has a separate API and console; the existing application below retains its own startup instructions.
+
+See the [desktop console README](desktop-console/README.md) for installation, model download sources, test commands, and measured limitations. The ten-plate 1080p synthetic benchmark measured 39.1 ms median / 44.2 ms p95 for the complete local HTTP response. A strict sub-40 ms accurate all-plate result is not achieved. Model weights, private uploads, downloaded datasets and local credentials are excluded.
+
+---
+
 # PlateVision 🚗🔍
 
 > **Production-Quality, Mobile-First Vehicle Number Plate Detection, Cropping & OCR System**
