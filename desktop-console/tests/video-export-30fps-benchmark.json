@@ -1,0 +1,136 @@
+[
+  {
+    "id": "caefb0587e054bb197e203c73ae519d6",
+    "status": "complete",
+    "progress": 100,
+    "phase": "Ready to play",
+    "fps": 30.0,
+    "width": 1280,
+    "height": 372,
+    "total_frames": 120,
+    "engine": "OpenVINO GPU",
+    "profile": "fast",
+    "source_duration_seconds": 4.0,
+    "frames_processed": 120,
+    "detection_ms": {
+      "p50": 21.92,
+      "p95": 27.67
+    },
+    "frame_ms": 24.77,
+    "video_url": "/api/videos/caefb0587e054bb197e203c73ae519d6/video",
+    "report_url": "/api/videos/caefb0587e054bb197e203c73ae519d6/report",
+    "frames": 120,
+    "decode_detect_track_ms": {
+      "p50": 26.61,
+      "p95": 32.82
+    },
+    "ocr_total_ms": 326.0,
+    "render_total_ms": 656.18,
+    "total_ms": 4366.21,
+    "processing_ms_per_frame": 36.39,
+    "detection_phase_ms": 3349.96,
+    "tracks": [
+      {
+        "id": 1,
+        "text": "OD02BG1396",
+        "ocr_confidence": 0.9612019479274749,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/caefb0587e054bb197e203c73ae519d6/crops/1"
+      },
+      {
+        "id": 2,
+        "text": "0D028J0758",
+        "ocr_confidence": 0.9791613757610321,
+        "format_status": "possible",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/caefb0587e054bb197e203c73ae519d6/crops/2"
+      },
+      {
+        "id": 3,
+        "text": "OD11H7299",
+        "ocr_confidence": 0.9345925504511053,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/caefb0587e054bb197e203c73ae519d6/crops/3"
+      }
+    ],
+    "all_frames_detected": true,
+    "weights_retrained": false,
+    "note": "Final track readings are applied retrospectively. OCR and export are included in the overall processing average.",
+    "upload_poll_download_wall_ms": 4684.65
+  },
+  {
+    "id": "598edde7321a4170b7422c2d4534dd8a",
+    "status": "complete",
+    "progress": 100,
+    "phase": "Ready to play",
+    "fps": 30.0,
+    "width": 1280,
+    "height": 372,
+    "total_frames": 120,
+    "engine": "OpenVINO GPU",
+    "profile": "fast",
+    "source_duration_seconds": 4.0,
+    "frames_processed": 120,
+    "detection_ms": {
+      "p50": 22.58,
+      "p95": 32.69
+    },
+    "frame_ms": 28.27,
+    "video_url": "/api/videos/598edde7321a4170b7422c2d4534dd8a/video",
+    "report_url": "/api/videos/598edde7321a4170b7422c2d4534dd8a/report",
+    "frames": 120,
+    "decode_detect_track_ms": {
+      "p50": 27.22,
+      "p95": 38.36
+    },
+    "ocr_total_ms": 319.16,
+    "render_total_ms": 897.0,
+    "total_ms": 5709.48,
+    "processing_ms_per_frame": 47.58,
+    "detection_phase_ms": 4464.35,
+    "tracks": [
+      {
+        "id": 1,
+        "text": "OD02BG1396",
+        "ocr_confidence": 0.9612019479274749,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/598edde7321a4170b7422c2d4534dd8a/crops/1"
+      },
+      {
+        "id": 2,
+        "text": "0D028J0758",
+        "ocr_confidence": 0.9791613757610321,
+        "format_status": "possible",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/598edde7321a4170b7422c2d4534dd8a/crops/2"
+      },
+      {
+        "id": 3,
+        "text": "OD11H7299",
+        "ocr_confidence": 0.9345925504511053,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/598edde7321a4170b7422c2d4534dd8a/crops/3"
+      }
+    ],
+    "all_frames_detected": true,
+    "weights_retrained": false,
+    "note": "Final track readings are applied retrospectively. OCR and export are included in the overall processing average.",
+    "upload_poll_download_wall_ms": 6030.8
+  }
+]

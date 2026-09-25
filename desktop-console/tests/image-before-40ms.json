@@ -1,0 +1,442 @@
+[
+  {
+    "request_id": "47b2ad0a-1b37-42f2-8581-c49483008d34",
+    "processing_time_ms": 275.42,
+    "detection_time_ms": 49.19,
+    "ocr_time_ms": 225.68,
+    "image": {
+      "width": 1440,
+      "height": 420
+    },
+    "search_strategy": "whole_frame_and_overlapping_tiles",
+    "detections": [
+      {
+        "id": "fb243ba8-995e-4154-9b8c-f361cf98139c",
+        "bounding_box": {
+          "x": 567,
+          "y": 178,
+          "width": 156,
+          "height": 39
+        },
+        "normalized_box": {
+          "x": 0.39375,
+          "y": 0.4238095238095238,
+          "width": 0.10833333333333334,
+          "height": 0.09285714285714286
+        },
+        "detection_confidence": 0.81982421875,
+        "raw_text": "OD02BG1396",
+        "normalized_text": "OD02BG1396",
+        "formatted_text": "OD 02 BG 1396",
+        "ocr_confidence": 0.9391105830669403,
+        "format_status": "valid",
+        "crop_url": "/api/results/47b2ad0a-1b37-42f2-8581-c49483008d34/fb243ba8-995e-4154-9b8c-f361cf98139c/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "094ee3b3-2627-49d4-80c9-c61be7fd85b4",
+        "bounding_box": {
+          "x": 83,
+          "y": 157,
+          "width": 111,
+          "height": 31
+        },
+        "normalized_box": {
+          "x": 0.05763888888888889,
+          "y": 0.3738095238095238,
+          "width": 0.07708333333333334,
+          "height": 0.07380952380952381
+        },
+        "detection_confidence": 0.740234375,
+        "raw_text": "0D028J0758",
+        "normalized_text": "0D028J0758",
+        "formatted_text": "0D028J0758",
+        "ocr_confidence": 0.9677999377250671,
+        "format_status": "possible",
+        "crop_url": "/api/results/47b2ad0a-1b37-42f2-8581-c49483008d34/094ee3b3-2627-49d4-80c9-c61be7fd85b4/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "1bd2090c-1cf5-4bfc-8b16-6e82726debbc",
+        "bounding_box": {
+          "x": 1217,
+          "y": 318,
+          "width": 139,
+          "height": 27
+        },
+        "normalized_box": {
+          "x": 0.8451388888888889,
+          "y": 0.7571428571428571,
+          "width": 0.09652777777777778,
+          "height": 0.06428571428571428
+        },
+        "detection_confidence": 0.7021484375,
+        "raw_text": "OD-11H-7299",
+        "normalized_text": "OD11H7299",
+        "formatted_text": "OD 11 H 7299",
+        "ocr_confidence": 0.9486153721809387,
+        "format_status": "valid",
+        "crop_url": "/api/results/47b2ad0a-1b37-42f2-8581-c49483008d34/1bd2090c-1cf5-4bfc-8b16-6e82726debbc/crop",
+        "vehicle_id": null
+      }
+    ],
+    "vehicles": [],
+    "vehicle_detector_ready": false,
+    "warnings": [
+      "Baseline model: CCTV accuracy is not sufficient for unattended operation. Verify all readings."
+    ],
+    "http_ms": 278.0117000002065
+  },
+  {
+    "request_id": "e7976c1a-09f3-4538-8db2-4e3f4728797c",
+    "processing_time_ms": 267.38,
+    "detection_time_ms": 40.65,
+    "ocr_time_ms": 226.25,
+    "image": {
+      "width": 1440,
+      "height": 420
+    },
+    "search_strategy": "whole_frame_and_overlapping_tiles",
+    "detections": [
+      {
+        "id": "86295a6e-4d42-41c8-a7fa-544039fc9bb3",
+        "bounding_box": {
+          "x": 567,
+          "y": 178,
+          "width": 156,
+          "height": 39
+        },
+        "normalized_box": {
+          "x": 0.39375,
+          "y": 0.4238095238095238,
+          "width": 0.10833333333333334,
+          "height": 0.09285714285714286
+        },
+        "detection_confidence": 0.81982421875,
+        "raw_text": "OD02BG1396",
+        "normalized_text": "OD02BG1396",
+        "formatted_text": "OD 02 BG 1396",
+        "ocr_confidence": 0.9391105830669403,
+        "format_status": "valid",
+        "crop_url": "/api/results/e7976c1a-09f3-4538-8db2-4e3f4728797c/86295a6e-4d42-41c8-a7fa-544039fc9bb3/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "53f0b05e-1e47-4cca-a7d3-61e837b267b8",
+        "bounding_box": {
+          "x": 83,
+          "y": 157,
+          "width": 111,
+          "height": 31
+        },
+        "normalized_box": {
+          "x": 0.05763888888888889,
+          "y": 0.3738095238095238,
+          "width": 0.07708333333333334,
+          "height": 0.07380952380952381
+        },
+        "detection_confidence": 0.740234375,
+        "raw_text": "0D028J0758",
+        "normalized_text": "0D028J0758",
+        "formatted_text": "0D028J0758",
+        "ocr_confidence": 0.9677999377250671,
+        "format_status": "possible",
+        "crop_url": "/api/results/e7976c1a-09f3-4538-8db2-4e3f4728797c/53f0b05e-1e47-4cca-a7d3-61e837b267b8/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "ae53c39c-49cd-4980-b84c-1a5ae040387e",
+        "bounding_box": {
+          "x": 1217,
+          "y": 318,
+          "width": 139,
+          "height": 27
+        },
+        "normalized_box": {
+          "x": 0.8451388888888889,
+          "y": 0.7571428571428571,
+          "width": 0.09652777777777778,
+          "height": 0.06428571428571428
+        },
+        "detection_confidence": 0.7021484375,
+        "raw_text": "OD-11H-7299",
+        "normalized_text": "OD11H7299",
+        "formatted_text": "OD 11 H 7299",
+        "ocr_confidence": 0.9486153721809387,
+        "format_status": "valid",
+        "crop_url": "/api/results/e7976c1a-09f3-4538-8db2-4e3f4728797c/ae53c39c-49cd-4980-b84c-1a5ae040387e/crop",
+        "vehicle_id": null
+      }
+    ],
+    "vehicles": [],
+    "vehicle_detector_ready": false,
+    "warnings": [
+      "Baseline model: CCTV accuracy is not sufficient for unattended operation. Verify all readings."
+    ],
+    "http_ms": 269.69180000014603
+  },
+  {
+    "request_id": "62588409-4550-4eb9-8484-f071cf7d484b",
+    "processing_time_ms": 263.24,
+    "detection_time_ms": 39.36,
+    "ocr_time_ms": 223.23,
+    "image": {
+      "width": 1440,
+      "height": 420
+    },
+    "search_strategy": "whole_frame_and_overlapping_tiles",
+    "detections": [
+      {
+        "id": "4fbf8f94-013b-4771-9842-77f3fe81ddc4",
+        "bounding_box": {
+          "x": 567,
+          "y": 178,
+          "width": 156,
+          "height": 39
+        },
+        "normalized_box": {
+          "x": 0.39375,
+          "y": 0.4238095238095238,
+          "width": 0.10833333333333334,
+          "height": 0.09285714285714286
+        },
+        "detection_confidence": 0.81982421875,
+        "raw_text": "OD02BG1396",
+        "normalized_text": "OD02BG1396",
+        "formatted_text": "OD 02 BG 1396",
+        "ocr_confidence": 0.9391105830669403,
+        "format_status": "valid",
+        "crop_url": "/api/results/62588409-4550-4eb9-8484-f071cf7d484b/4fbf8f94-013b-4771-9842-77f3fe81ddc4/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "cbdd2c9e-03d0-4bc9-b3db-3900bb55c0e1",
+        "bounding_box": {
+          "x": 83,
+          "y": 157,
+          "width": 111,
+          "height": 31
+        },
+        "normalized_box": {
+          "x": 0.05763888888888889,
+          "y": 0.3738095238095238,
+          "width": 0.07708333333333334,
+          "height": 0.07380952380952381
+        },
+        "detection_confidence": 0.740234375,
+        "raw_text": "0D028J0758",
+        "normalized_text": "0D028J0758",
+        "formatted_text": "0D028J0758",
+        "ocr_confidence": 0.9677999377250671,
+        "format_status": "possible",
+        "crop_url": "/api/results/62588409-4550-4eb9-8484-f071cf7d484b/cbdd2c9e-03d0-4bc9-b3db-3900bb55c0e1/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "914b6e8d-785d-4999-9426-310e97f72c4f",
+        "bounding_box": {
+          "x": 1217,
+          "y": 318,
+          "width": 139,
+          "height": 27
+        },
+        "normalized_box": {
+          "x": 0.8451388888888889,
+          "y": 0.7571428571428571,
+          "width": 0.09652777777777778,
+          "height": 0.06428571428571428
+        },
+        "detection_confidence": 0.7021484375,
+        "raw_text": "OD-11H-7299",
+        "normalized_text": "OD11H7299",
+        "formatted_text": "OD 11 H 7299",
+        "ocr_confidence": 0.9486153721809387,
+        "format_status": "valid",
+        "crop_url": "/api/results/62588409-4550-4eb9-8484-f071cf7d484b/914b6e8d-785d-4999-9426-310e97f72c4f/crop",
+        "vehicle_id": null
+      }
+    ],
+    "vehicles": [],
+    "vehicle_detector_ready": false,
+    "warnings": [
+      "Baseline model: CCTV accuracy is not sufficient for unattended operation. Verify all readings."
+    ],
+    "http_ms": 265.8656000003248
+  },
+  {
+    "request_id": "86a86f55-add2-486f-8561-66627dae13fb",
+    "processing_time_ms": 268.89,
+    "detection_time_ms": 39.34,
+    "ocr_time_ms": 229.04,
+    "image": {
+      "width": 1440,
+      "height": 420
+    },
+    "search_strategy": "whole_frame_and_overlapping_tiles",
+    "detections": [
+      {
+        "id": "dd4ce411-57cd-4600-b089-4714710975f7",
+        "bounding_box": {
+          "x": 567,
+          "y": 178,
+          "width": 156,
+          "height": 39
+        },
+        "normalized_box": {
+          "x": 0.39375,
+          "y": 0.4238095238095238,
+          "width": 0.10833333333333334,
+          "height": 0.09285714285714286
+        },
+        "detection_confidence": 0.81982421875,
+        "raw_text": "OD02BG1396",
+        "normalized_text": "OD02BG1396",
+        "formatted_text": "OD 02 BG 1396",
+        "ocr_confidence": 0.9391105830669403,
+        "format_status": "valid",
+        "crop_url": "/api/results/86a86f55-add2-486f-8561-66627dae13fb/dd4ce411-57cd-4600-b089-4714710975f7/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "23730388-fa4d-4f68-a1f4-7aa0b7a0017a",
+        "bounding_box": {
+          "x": 83,
+          "y": 157,
+          "width": 111,
+          "height": 31
+        },
+        "normalized_box": {
+          "x": 0.05763888888888889,
+          "y": 0.3738095238095238,
+          "width": 0.07708333333333334,
+          "height": 0.07380952380952381
+        },
+        "detection_confidence": 0.740234375,
+        "raw_text": "0D028J0758",
+        "normalized_text": "0D028J0758",
+        "formatted_text": "0D028J0758",
+        "ocr_confidence": 0.9677999377250671,
+        "format_status": "possible",
+        "crop_url": "/api/results/86a86f55-add2-486f-8561-66627dae13fb/23730388-fa4d-4f68-a1f4-7aa0b7a0017a/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "afcd66d8-28d1-44d7-b1c6-6f959df296d7",
+        "bounding_box": {
+          "x": 1217,
+          "y": 318,
+          "width": 139,
+          "height": 27
+        },
+        "normalized_box": {
+          "x": 0.8451388888888889,
+          "y": 0.7571428571428571,
+          "width": 0.09652777777777778,
+          "height": 0.06428571428571428
+        },
+        "detection_confidence": 0.7021484375,
+        "raw_text": "OD-11H-7299",
+        "normalized_text": "OD11H7299",
+        "formatted_text": "OD 11 H 7299",
+        "ocr_confidence": 0.9486153721809387,
+        "format_status": "valid",
+        "crop_url": "/api/results/86a86f55-add2-486f-8561-66627dae13fb/afcd66d8-28d1-44d7-b1c6-6f959df296d7/crop",
+        "vehicle_id": null
+      }
+    ],
+    "vehicles": [],
+    "vehicle_detector_ready": false,
+    "warnings": [
+      "Baseline model: CCTV accuracy is not sufficient for unattended operation. Verify all readings."
+    ],
+    "http_ms": 271.41909999954805
+  },
+  {
+    "request_id": "88af9aa3-90cd-46ce-8237-213c2e91d19a",
+    "processing_time_ms": 275.77,
+    "detection_time_ms": 41.8,
+    "ocr_time_ms": 233.44,
+    "image": {
+      "width": 1440,
+      "height": 420
+    },
+    "search_strategy": "whole_frame_and_overlapping_tiles",
+    "detections": [
+      {
+        "id": "8c56aff4-f926-4186-8220-35f23dfa0549",
+        "bounding_box": {
+          "x": 567,
+          "y": 178,
+          "width": 156,
+          "height": 39
+        },
+        "normalized_box": {
+          "x": 0.39375,
+          "y": 0.4238095238095238,
+          "width": 0.10833333333333334,
+          "height": 0.09285714285714286
+        },
+        "detection_confidence": 0.81982421875,
+        "raw_text": "OD02BG1396",
+        "normalized_text": "OD02BG1396",
+        "formatted_text": "OD 02 BG 1396",
+        "ocr_confidence": 0.9391105830669403,
+        "format_status": "valid",
+        "crop_url": "/api/results/88af9aa3-90cd-46ce-8237-213c2e91d19a/8c56aff4-f926-4186-8220-35f23dfa0549/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "8602f650-4cb1-4852-a298-a84d394c6069",
+        "bounding_box": {
+          "x": 83,
+          "y": 157,
+          "width": 111,
+          "height": 31
+        },
+        "normalized_box": {
+          "x": 0.05763888888888889,
+          "y": 0.3738095238095238,
+          "width": 0.07708333333333334,
+          "height": 0.07380952380952381
+        },
+        "detection_confidence": 0.740234375,
+        "raw_text": "0D028J0758",
+        "normalized_text": "0D028J0758",
+        "formatted_text": "0D028J0758",
+        "ocr_confidence": 0.9677999377250671,
+        "format_status": "possible",
+        "crop_url": "/api/results/88af9aa3-90cd-46ce-8237-213c2e91d19a/8602f650-4cb1-4852-a298-a84d394c6069/crop",
+        "vehicle_id": null
+      },
+      {
+        "id": "81787254-5cf7-4535-b1e6-2c72e5a56274",
+        "bounding_box": {
+          "x": 1217,
+          "y": 318,
+          "width": 139,
+          "height": 27
+        },
+        "normalized_box": {
+          "x": 0.8451388888888889,
+          "y": 0.7571428571428571,
+          "width": 0.09652777777777778,
+          "height": 0.06428571428571428
+        },
+        "detection_confidence": 0.7021484375,
+        "raw_text": "OD-11H-7299",
+        "normalized_text": "OD11H7299",
+        "formatted_text": "OD 11 H 7299",
+        "ocr_confidence": 0.9486153721809387,
+        "format_status": "valid",
+        "crop_url": "/api/results/88af9aa3-90cd-46ce-8237-213c2e91d19a/81787254-5cf7-4535-b1e6-2c72e5a56274/crop",
+        "vehicle_id": null
+      }
+    ],
+    "vehicles": [],
+    "vehicle_detector_ready": false,
+    "warnings": [
+      "Baseline model: CCTV accuracy is not sufficient for unattended operation. Verify all readings."
+    ],
+    "http_ms": 278.48809999977675
+  }
+]

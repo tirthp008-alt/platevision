@@ -1,0 +1,61 @@
+{
+  "fixture": "multi-plate-video.webm",
+  "note": "Functional composite-video regression, not an independent accuracy benchmark.",
+  "frames": 9,
+  "results": [
+    {
+      "timestamp": 0.0,
+      "plates": 3,
+      "text_readings": 3,
+      "processing_time_ms": 1046.55
+    },
+    {
+      "timestamp": 0.5,
+      "plates": 3,
+      "text_readings": 3,
+      "processing_time_ms": 1011.81
+    },
+    {
+      "timestamp": 1.0,
+      "plates": 3,
+      "text_readings": 3,
+      "processing_time_ms": 975.26
+    },
+    {
+      "timestamp": 1.5,
+      "plates": 3,
+      "text_readings": 3,
+      "processing_time_ms": 1336.95
+    },
+    {
+      "timestamp": 2.0,
+      "plates": 3,
+      "text_readings": 3,
+      "processing_time_ms": 1348.79
+    },
+    {
+      "timestamp": 2.5,
+      "plates": 3,
+      "text_readings": 3,
+      "processing_time_ms": 1365.75
+    },
+    {
+      "timestamp": 3.0,
+      "plates": 3,
+      "text_readings": 3,
+      "processing_time_ms": 1364.71
+    },
+    {
+      "timestamp": 3.5,
+      "plates": 3,
+      "text_readings": 3,
+      "processing_time_ms": 1305.05
+    },
+    {
+      "timestamp": 3.999,
+      "plates": 3,
+      "text_readings": 3,
+      "processing_time_ms": 1363.11
+    }
+  ]
+}

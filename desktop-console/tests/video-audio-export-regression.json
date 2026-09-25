@@ -1,0 +1,71 @@
+[
+  {
+    "id": "5ff609f9002a4dd5a71544ac38994617",
+    "status": "complete",
+    "progress": 100,
+    "phase": "Ready to play",
+    "fps": 30.0,
+    "width": 1280,
+    "height": 372,
+    "total_frames": 120,
+    "engine": "OpenVINO GPU",
+    "profile": "fast",
+    "source_duration_seconds": 4.0,
+    "frames_processed": 120,
+    "detection_ms": {
+      "p50": 25.65,
+      "p95": 30.93
+    },
+    "frame_ms": 29.61,
+    "video_url": "/api/videos/5ff609f9002a4dd5a71544ac38994617/video",
+    "report_url": "/api/videos/5ff609f9002a4dd5a71544ac38994617/report",
+    "frames": 120,
+    "decode_detect_track_ms": {
+      "p50": 29.4,
+      "p95": 35.0
+    },
+    "ocr_total_ms": 333.48,
+    "render_total_ms": 533.32,
+    "total_ms": 4583.65,
+    "paused_ms": 0.0,
+    "wall_ms": 4583.65,
+    "processing_ms_per_frame": 38.2,
+    "detection_phase_ms": 3662.59,
+    "tracks": [
+      {
+        "id": 1,
+        "text": "OD02BG1396",
+        "ocr_confidence": 0.9612019479274749,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/5ff609f9002a4dd5a71544ac38994617/crops/1"
+      },
+      {
+        "id": 2,
+        "text": "0D028J0758",
+        "ocr_confidence": 0.9791613757610321,
+        "format_status": "possible",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/5ff609f9002a4dd5a71544ac38994617/crops/2"
+      },
+      {
+        "id": 3,
+        "text": "OD11H7299",
+        "ocr_confidence": 0.9345925504511053,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/5ff609f9002a4dd5a71544ac38994617/crops/3"
+      }
+    ],
+    "all_frames_searched": true,
+    "weights_retrained": false,
+    "note": "Final track readings are applied retrospectively. OCR and export are included in the overall processing average.",
+    "upload_poll_download_wall_ms": 4802.78
+  }
+]

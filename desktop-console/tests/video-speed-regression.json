@@ -1,0 +1,66 @@
+{
+  "id": "20598653139c4d79a61ec0908d7e4c90",
+  "status": "complete",
+  "progress": 100,
+  "phase": "Ready to play",
+  "fps": 5.0,
+  "width": 1280,
+  "height": 372,
+  "total_frames": 20,
+  "engine": "OpenVINO GPU",
+  "profile": "fast",
+  "source_duration_seconds": 4.0,
+  "frames_processed": 20,
+  "detection_ms": {
+    "p50": 20.47,
+    "p95": 23.21
+  },
+  "frame_ms": 23.21,
+  "video_url": "/api/videos/20598653139c4d79a61ec0908d7e4c90/video",
+  "report_url": "/api/videos/20598653139c4d79a61ec0908d7e4c90/report",
+  "frames": 20,
+  "decode_detect_track_ms": {
+    "p50": 24.57,
+    "p95": 30.63
+  },
+  "ocr_total_ms": 257.52,
+  "render_total_ms": 149.01,
+  "total_ms": 3330.5,
+  "processing_ms_per_frame": 166.52,
+  "detection_phase_ms": 906.42,
+  "tracks": [
+    {
+      "id": 1,
+      "text": "OD02BG1396",
+      "ocr_confidence": 0.9708551585674285,
+      "format_status": "valid",
+      "first_seen": 0.0,
+      "last_seen": 3.8,
+      "observations": 20,
+      "crop_url": "/api/videos/20598653139c4d79a61ec0908d7e4c90/crops/1"
+    },
+    {
+      "id": 2,
+      "text": "OD11H7299",
+      "ocr_confidence": 0.9520951888777993,
+      "format_status": "valid",
+      "first_seen": 0.0,
+      "last_seen": 3.8,
+      "observations": 20,
+      "crop_url": "/api/videos/20598653139c4d79a61ec0908d7e4c90/crops/2"
+    },
+    {
+      "id": 3,
+      "text": "0D028J0758",
+      "ocr_confidence": 0.9683719456195832,
+      "format_status": "possible",
+      "first_seen": 0.0,
+      "last_seen": 3.8,
+      "observations": 20,
+      "crop_url": "/api/videos/20598653139c4d79a61ec0908d7e4c90/crops/3"
+    }
+  ],
+  "all_frames_detected": true,
+  "weights_retrained": false,
+  "note": "Final track readings are applied retrospectively. OCR and export are included in the overall processing average."
+}

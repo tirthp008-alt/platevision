@@ -1,0 +1,71 @@
+{
+  "verification": "CUA browser upload, pause at 110/120 frames, resume, annotated player readyState 4, duration 4 seconds, no media error, no browser console errors. Three tracks with 120 observations each.",
+  "job": {
+    "id": "beed2e2d010f482a81b1ecc38f708bd8",
+    "status": "complete",
+    "progress": 100,
+    "phase": "Ready to play",
+    "fps": 30.0,
+    "width": 1280,
+    "height": 372,
+    "total_frames": 120,
+    "engine": "OpenVINO GPU",
+    "profile": "fast",
+    "source_duration_seconds": 4.0,
+    "frames_processed": 120,
+    "detection_ms": {
+      "p50": 29.79,
+      "p95": 43.97
+    },
+    "frame_ms": 43.69,
+    "video_url": "/api/videos/beed2e2d010f482a81b1ecc38f708bd8/video",
+    "report_url": "/api/videos/beed2e2d010f482a81b1ecc38f708bd8/report",
+    "frames": 120,
+    "decode_detect_track_ms": {
+      "p50": 33.93,
+      "p95": 49.62
+    },
+    "ocr_total_ms": 381.19,
+    "render_total_ms": 641.15,
+    "total_ms": 5418.41,
+    "paused_ms": 32072.36,
+    "wall_ms": 37490.77,
+    "processing_ms_per_frame": 45.15,
+    "detection_phase_ms": 4368.77,
+    "tracks": [
+      {
+        "id": 1,
+        "text": "OD02BG1396",
+        "ocr_confidence": 0.9612019479274749,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/beed2e2d010f482a81b1ecc38f708bd8/crops/1"
+      },
+      {
+        "id": 2,
+        "text": "0D028J0758",
+        "ocr_confidence": 0.9791613757610321,
+        "format_status": "possible",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/beed2e2d010f482a81b1ecc38f708bd8/crops/2"
+      },
+      {
+        "id": 3,
+        "text": "OD11H7299",
+        "ocr_confidence": 0.9345925504511053,
+        "format_status": "valid",
+        "first_seen": 0.0,
+        "last_seen": 3.967,
+        "observations": 120,
+        "crop_url": "/api/videos/beed2e2d010f482a81b1ecc38f708bd8/crops/3"
+      }
+    ],
+    "all_frames_searched": true,
+    "weights_retrained": false,
+    "note": "Final track readings are applied retrospectively. OCR and export are included in the overall processing average."
+  }
+}

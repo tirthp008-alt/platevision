@@ -1,0 +1,376 @@
+{
+  "images": 50,
+  "model_sha256": "85d236280a1301ad98907947d284951dd2b20c23a6786ff50f7e6a8ec515bd50",
+  "iou_threshold": 0.5,
+  "configuration": {
+    "tile_size": 480,
+    "confidence_threshold": 0.25,
+    "refinement": true,
+    "crop_padding": 0.25,
+    "unverified_threshold": 0.55
+  },
+  "true_positives": 53,
+  "false_positives": 15,
+  "false_negatives": 31,
+  "precision": 0.7794117647058824,
+  "recall": 0.6309523809523809,
+  "multi_plate_scenes": 29,
+  "complete_multi_plate_scenes": 9,
+  "latency_ms": {
+    "p50": 1956.02,
+    "p95": 2520.2205
+  },
+  "note": "Development diagnostic, not independent final accuracy. Measures returned API boxes including crop padding and OCR-supported filtering; no exact-text labels available.",
+  "scenes": [
+    {
+      "file": "vid-3_frame-1075.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 2,
+      "processing_time_ms": 2531.52
+    },
+    {
+      "file": "vid-3_frame-1110.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 2,
+      "processing_time_ms": 2069.56
+    },
+    {
+      "file": "vid-3_frame-1345.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2078.7
+    },
+    {
+      "file": "vid-3_frame-150.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1790.79
+    },
+    {
+      "file": "vid-3_frame-1550.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0,
+      "processing_time_ms": 1762.74
+    },
+    {
+      "file": "vid-3_frame-1575.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1727.97
+    },
+    {
+      "file": "vid-3_frame-1725.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 0,
+      "processing_time_ms": 2202.59
+    },
+    {
+      "file": "vid-3_frame-1800.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 4,
+      "processing_time_ms": 3042.5
+    },
+    {
+      "file": "vid-3_frame-1860.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 1,
+      "processing_time_ms": 2070.45
+    },
+    {
+      "file": "vid-3_frame-1880.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1921.39
+    },
+    {
+      "file": "vid-3_frame-190.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 4,
+      "processing_time_ms": 2952.67
+    },
+    {
+      "file": "vid-3_frame-1915.jpg",
+      "labelled": 3,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2403.88
+    },
+    {
+      "file": "vid-3_frame-2245.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1876.05
+    },
+    {
+      "file": "vid-3_frame-225.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 2,
+      "processing_time_ms": 2268.6
+    },
+    {
+      "file": "vid-3_frame-2340.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1928.67
+    },
+    {
+      "file": "vid-3_frame-2375.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 2452.67
+    },
+    {
+      "file": "vid-3_frame-2475.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0,
+      "processing_time_ms": 1895.72
+    },
+    {
+      "file": "vid-3_frame-2480.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1885.58
+    },
+    {
+      "file": "vid-3_frame-260.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1922.61
+    },
+    {
+      "file": "vid-3_frame-2600.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2162.98
+    },
+    {
+      "file": "vid-3_frame-2610.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 2,
+      "processing_time_ms": 1961.47
+    },
+    {
+      "file": "vid-3_frame-2665.jpg",
+      "labelled": 3,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1729.05
+    },
+    {
+      "file": "vid-3_frame-2735.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 0,
+      "processing_time_ms": 1642.84
+    },
+    {
+      "file": "vid-3_frame-2785.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1950.57
+    },
+    {
+      "file": "vid-3_frame-3000.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 2,
+      "processing_time_ms": 2033.9
+    },
+    {
+      "file": "vid-3_frame-3055.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 1850.26
+    },
+    {
+      "file": "vid-3_frame-3115.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0,
+      "processing_time_ms": 1748.17
+    },
+    {
+      "file": "vid-3_frame-3135.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 2,
+      "processing_time_ms": 2506.41
+    },
+    {
+      "file": "vid-3_frame-3155.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 2043.96
+    },
+    {
+      "file": "vid-3_frame-325.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1879.84
+    },
+    {
+      "file": "vid-3_frame-3305.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2043.7
+    },
+    {
+      "file": "vid-3_frame-3310.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2178.85
+    },
+    {
+      "file": "vid-3_frame-3320.jpg",
+      "labelled": 3,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2194.31
+    },
+    {
+      "file": "vid-3_frame-3440.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1842.24
+    },
+    {
+      "file": "vid-3_frame-3570.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0,
+      "processing_time_ms": 1659.31
+    },
+    {
+      "file": "vid-3_frame-3575.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0,
+      "processing_time_ms": 1664.1
+    },
+    {
+      "file": "vid-3_frame-3735.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2040.78
+    },
+    {
+      "file": "vid-3_frame-3775.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 2,
+      "processing_time_ms": 2010.7
+    },
+    {
+      "file": "vid-3_frame-3890.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2129.24
+    },
+    {
+      "file": "vid-3_frame-3895.jpg",
+      "labelled": 3,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2048.54
+    },
+    {
+      "file": "vid-3_frame-3935.jpg",
+      "labelled": 3,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 2000.1
+    },
+    {
+      "file": "vid-3_frame-3980.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 1993.71
+    },
+    {
+      "file": "vid-3_frame-415.jpg",
+      "labelled": 2,
+      "matched": 0,
+      "predicted": 0,
+      "processing_time_ms": 1665.92
+    },
+    {
+      "file": "vid-3_frame-490.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 2,
+      "processing_time_ms": 1892.6
+    },
+    {
+      "file": "vid-3_frame-5.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1926.91
+    },
+    {
+      "file": "vid-3_frame-520.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1827.68
+    },
+    {
+      "file": "vid-3_frame-560.jpg",
+      "labelled": 2,
+      "matched": 2,
+      "predicted": 2,
+      "processing_time_ms": 1901.47
+    },
+    {
+      "file": "vid-3_frame-630.jpg",
+      "labelled": 1,
+      "matched": 0,
+      "predicted": 0,
+      "processing_time_ms": 1934.82
+    },
+    {
+      "file": "vid-3_frame-720.jpg",
+      "labelled": 2,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 2211.34
+    },
+    {
+      "file": "vid-3_frame-835.jpg",
+      "labelled": 1,
+      "matched": 1,
+      "predicted": 1,
+      "processing_time_ms": 1914.27
+    }
+  ]
+}

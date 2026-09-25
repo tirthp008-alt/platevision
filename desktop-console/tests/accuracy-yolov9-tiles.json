@@ -1,0 +1,11 @@
+{
+  "images": 50,
+  "iou_threshold": 0.5,
+  "confidence_threshold": 0.35,
+  "true_positives": 29,
+  "false_positives": 65,
+  "false_negatives": 55,
+  "precision": 0.30851063829787234,
+  "recall": 0.34523809523809523,
+  "note": "Bounding boxes only; does not measure text recognition accuracy. Downloaded baseline model, not fine-tuned on this project."
+}
