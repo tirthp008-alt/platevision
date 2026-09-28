@@ -24,7 +24,7 @@ export default function AboutPage() {
           About <span className="text-cyan-400 font-mono">PlateVision</span>
         </h1>
         <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
-          High-performance Automated Number Plate Recognition (ANPR) designed for privacy, speed, and real-world robustness.
+          A prototype for plate localization, OCR review and multi-camera vehicle observations, with measured results and explicit uncertainty.
         </p>
       </div>
 
@@ -36,7 +36,7 @@ export default function AboutPage() {
           </div>
           <div>
             <h2 className="text-lg font-bold text-white">Privacy & Responsible Use Guidelines</h2>
-            <p className="text-xs text-cyan-300 font-mono">Zero-Retention Security Architecture</p>
+            <p className="text-xs text-cyan-300 font-mono">Storage and review depend on the selected workflow</p>
           </div>
         </div>
 
@@ -48,20 +48,20 @@ export default function AboutPage() {
           <div className="p-3 rounded-xl bg-navy-950/60 border border-slate-800 space-y-1">
             <span className="font-bold text-white flex items-center gap-1.5">
               <Lock className="w-3.5 h-3.5 text-emerald-400" />
-              In-Memory Transient Processing
+              Temporary crops and saved records
             </span>
             <p className="text-slate-400 text-[11px] leading-relaxed">
-              Images received by the backend are processed exclusively in RAM and are never permanently persisted to disk or databases.
+              PlateVision caches image crops temporarily. Grid stores sightings, trajectories and audit records. The desktop console saves annotated video exports and reports.
             </p>
           </div>
 
           <div className="p-3 rounded-xl bg-navy-950/60 border border-slate-800 space-y-1">
             <span className="font-bold text-white flex items-center gap-1.5">
               <EyeOff className="w-3.5 h-3.5 text-cyan-400" />
-              No Tracking or Surveillance
+              Vehicle observations, not owner identification
             </span>
             <p className="text-slate-400 text-[11px] leading-relaxed">
-              PlateVision contains no owner lookup databases, facial recognition, geolocation tracking, or centralized logging.
+              Drishti Grid associates vehicle sightings using camera locations, timestamps and model evidence. Candidate links require review; the project includes no vehicle-owner lookup or facial recognition.
             </p>
           </div>
         </div>

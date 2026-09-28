@@ -36,10 +36,21 @@ class PrivacyRedactingFormatter(logging.Formatter):
         return msg
 
 
+class EncodingSafeStreamHandler(logging.StreamHandler):
+    """Escape unsupported console characters after privacy redaction."""
+
+    def format(self, record: logging.LogRecord) -> str:
+        message = super().format(record)
+        encoding = getattr(self.stream, "encoding", None)
+        if encoding:
+            return message.encode(encoding, errors="backslashreplace").decode(encoding)
+        return message
+
+
 def setup_logger(name: str = "platevision") -> logging.Logger:
     logger = logging.getLogger(name)
     if not logger.handlers:
-        handler = logging.StreamHandler(sys.stdout)
+        handler = EncodingSafeStreamHandler(sys.stdout)
         handler.setLevel(logging.INFO)
         formatter = PrivacyRedactingFormatter(
             fmt="%(asctime)s [%(levelname)s] [%(name)s] %(message)s",

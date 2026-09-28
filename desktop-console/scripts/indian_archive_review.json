@@ -1,0 +1,7 @@
+{
+  "Datacluster_number_plates (36)": {"vehicle_group": "same-bike-36-55"},
+  "Datacluster_number_plates (55)": {"vehicle_group": "same-bike-36-55"},
+  "dc_bus_image_000033_XUH0eV452t": {"review_required": "Busy road scene: all visible background plates need annotation review."},
+  "dc_bus_image_000039_9NispLHmAo": {"review_required": "Visible yellow bus plate is unlabelled; only the nearby car is boxed. Verify car transcription too."},
+  "dc_tempo_van__image_000490_CF9bwJsyoX": {"review_required": "Traffic scene with potentially unlabelled background plates; review complete coverage."}
+}

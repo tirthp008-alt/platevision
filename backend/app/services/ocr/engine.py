@@ -1,4 +1,4 @@
-"""High-performance, ultra-fast (< 50ms per plate) OCR recognition engine using RapidOCR ONNX text recognizer directly,
+"""Plate OCR using the RapidOCR ONNX text recognizer directly,
 with tight crop aspect-ratio normalization, automatic 2-line splitting, and position-aware Indian plate correction.
 """
 
@@ -34,11 +34,12 @@ class OCRResult:
 
 
 class OCREngine:
-    """Sub-50ms OCR Engine utilizing direct ONNX text recognizer without redundant DBNet full-frame detection."""
+    """Recognize plate crops without redundant full-frame text detection."""
 
     def __init__(self):
         self._rapidocr = None
         self._recognizer = None
+        self._recognizer_is_direct = False
         self._engine_type = "heuristic"
         self._init_engine()
 
@@ -47,13 +48,18 @@ class OCREngine:
             from rapidocr_onnxruntime import RapidOCR  # type: ignore
 
             self._rapidocr = RapidOCR()
-            if hasattr(self._rapidocr, "text_recognizer") and self._rapidocr.text_recognizer:
-                self._recognizer = self._rapidocr.text_recognizer
-            else:
+            # RapidOCR 1.4 uses text_rec; retain the older attribute alias.
+            for name in ("text_rec", "text_recognizer"):
+                recognizer = getattr(self._rapidocr, name, None)
+                if callable(recognizer):
+                    self._recognizer = recognizer
+                    self._recognizer_is_direct = True
+                    break
+            if self._recognizer is None:
                 self._recognizer = self._rapidocr
 
             self._engine_type = "rapidocr"
-            logger.info("OCR Engine initialized with direct RapidOCR ONNX Text Recognizer (< 50ms latency).")
+            logger.info("OCR Engine initialized with RapidOCR ONNX crop recognition.")
             return
         except Exception as e:
             logger.warning(f"RapidOCR initialization failed ({e}), falling back to heuristic engine.")
@@ -65,10 +71,24 @@ class OCREngine:
             return "", 0.0
 
         try:
-            res, _ = self._recognizer(img_bgr)
-            if res and len(res) > 0:
-                text = str(res[0][0]).strip()
-                conf = float(res[0][1]) if len(res[0]) > 1 else 0.85
+            if self._recognizer_is_direct:
+                res, _ = self._recognizer([img_bgr])
+            else:
+                res, _ = self._recognizer(
+                    img_bgr, use_det=False, use_cls=False, use_rec=True
+                )
+            # Recognition-only output is one (text, confidence) pair per crop.
+            # Never stringify full-OCR coordinate boxes or invent a score.
+            if not isinstance(res, (list, tuple)) or len(res) != 1:
+                return "", 0.0
+            reading = res[0]
+            if not isinstance(reading, (list, tuple)) or len(reading) != 2:
+                return "", 0.0
+            if not isinstance(reading[0], str):
+                return "", 0.0
+            text = reading[0].strip()
+            conf = float(reading[1])
+            if text and np.isfinite(conf) and 0.0 <= conf <= 1.0:
                 return text, conf
         except Exception as e:
             logger.debug(f"Direct text recognizer error: {e}")
@@ -76,7 +96,7 @@ class OCREngine:
         return "", 0.0
 
     def recognize(self, bgr_crop: np.ndarray) -> OCRResult:
-        """Fast sub-50ms single-pass OCR pipeline supporting single-line and double-line Indian plates."""
+        """Recognize single-line and double-line Indian plate crops."""
         if bgr_crop is None or bgr_crop.size == 0 or bgr_crop.shape[0] < 6 or bgr_crop.shape[1] < 10:
             return OCRResult("", "", "", 0.0, "uncertain", "none", np.zeros((10, 10), dtype=np.uint8))
 
@@ -124,7 +144,7 @@ class OCREngine:
             raw_text=raw_text or "",
             normalized_text=norm_text or "",
             formatted_text=fmt_text or "",
-            confidence=round(ocr_conf, 2) if ocr_conf > 0 else 0.70,
+            confidence=round(ocr_conf, 2),
             format_status=status or "uncertain",
             best_variant_name="direct_onnx_rec",
             best_variant_image=enhanced_gray,

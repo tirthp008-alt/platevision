@@ -1,6 +1,6 @@
-"""Production-grade Multi-Scale Tiled (SAHI-style) YOLOv8 ONNX Plate Detector.
-Captures all two-wheelers, motorcycles, distant vehicles, and multi-vehicle traffic scenes
-by combining full-frame global inference with high-resolution overlapping tile slices.
+"""Multi-scale tiled YOLO ONNX plate detector for the web application.
+Combines full-frame inference with overlapping tile slices to search for smaller
+plate regions. Coverage and precision depend on the input and selected weights.
 """
 
 import os
@@ -32,7 +32,7 @@ def compute_iou(b1: BoundingBox, b2: BoundingBox) -> float:
 
 
 class OnnxPlateDetector(BasePlateDetector):
-    """High-accuracy multi-scale tiled ONNX YOLOv8 detector for cars, two-wheelers & distant plates."""
+    """Multi-scale tiled detector using a compatible plate-trained ONNX graph."""
 
     def __init__(self, model_path: str = None):
         self.model_path = model_path or settings.ONNX_MODEL_PATH

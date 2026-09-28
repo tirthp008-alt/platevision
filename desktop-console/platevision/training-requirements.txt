@@ -1,1 +1,4 @@
 ultralytics==8.3.65
+torch==2.6.0
+torchvision==0.21.0
+onnx==1.22.0

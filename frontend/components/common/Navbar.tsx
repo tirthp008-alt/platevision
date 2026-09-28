@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Camera, Upload, History, Info, Scan, Radio, Cctv, ShieldCheck } from "lucide-react";
+import { Camera, Upload, History, Info, Scan, Radio, Cctv, ShieldCheck, Radar } from "lucide-react";
 import { StatusIndicator } from "./StatusIndicator";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
+  { label: "Drishti Grid", href: "/grid", icon: Radar },
   { label: "Live Traffic Stream", href: "/cctv", icon: Cctv, badge: "LIVE" },
   { label: "Phone Camera", href: "/camera", icon: Camera },
   { label: "Upload Photo/Video", href: "/upload", icon: Upload },
@@ -36,7 +37,7 @@ export function Navbar() {
               </span>
             </div>
             <p className="text-[10px] text-slate-400 -mt-0.5 hidden sm:block font-medium">
-              National Traffic Vision & License Plate Recognition
+              Vehicle Vision & Plate Recognition Prototype
             </p>
           </div>
         </Link>

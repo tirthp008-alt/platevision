@@ -58,12 +58,22 @@ def test_api_errors_are_distinct(monkeypatch):
     assert client.post('/api/detect/image',files={'image':('x.png',data.getvalue(),'image/png')}).status_code==500
 
 def test_vehicle_classes_do_not_double_count_same_vehicle():
+    from app.services.detector import VehicleDetector
+    from app.services.vehicles import attach_vehicles
     detector=object.__new__(OnnxPlateDetector);detector.classes=80;detector.allowed={2,3,5,7}
     output=np.zeros((1,84,2),np.float32)
     output[0,:4,:]=np.array([[50,51],[50,51],[60,60],[40,40]])
     output[0,4+5,0]=.9;output[0,4+7,1]=.8
-    result=detector.postprocess(output,1,0,0,200,100)
+    # Generic output parsing preserves categories; vehicle-specific duplicate
+    # reconciliation happens before observations become frame/track counts.
+    assert len(detector.postprocess(output,1,0,0,200,100))==2
+    detector.runtime='test'
+    detector.objects=lambda image,threshold=None:detector.postprocess(output,1,0,0,200,100,threshold)
+    result=VehicleDetector(detector,'coco').objects(np.zeros((100,200,3),np.uint8))
     assert len(result)==1 and result[0][-1]==5
+    _,summary=attach_vehicles([],result,200,100)
+    assert summary['total_vehicles']==1 and summary['counts_by_category']['bus']==1
+    assert summary['counts_by_category']['truck']==0
 
 def test_tile_starts_cover_edges_with_overlap():
     starts=OnnxPlateDetector.tile_starts(1600,640,.25)
@@ -178,7 +188,7 @@ def test_weak_proposal_is_promoted_only_after_local_model_confirmation(monkeypat
     assert detector.detect_plates(np.zeros((300,300,3),np.uint8))==[(100,100,40,20,.8)]
 
 
-def test_weak_false_candidate_filtered_but_readable_and_strong_regions_retained():
+def test_ocr_never_discards_detected_regions_and_weak_unreadable_text_needs_review():
     class Detector:
         def detect(self,image):return [(10,10,50,20,.3),(100,10,50,20,.3),(200,10,50,20,.8)]
     class OCR:
@@ -186,7 +196,9 @@ def test_weak_false_candidate_filtered_but_readable_and_strong_regions_retained(
         def read(self,crop):return next(self.rows)
     data=io.BytesIO();Image.new('RGB',(300,100)).save(data,format='PNG')
     result=process(data.getvalue(),Detector(),CropStore(),OCR())
-    assert [d['normalized_text'] for d in result['detections']]==['MH12AB1234','']
+    assert [d['normalized_text'] for d in result['detections']]==['HONDA','MH12AB1234','']
+    assert result['detections'][0]['format_status']=='uncertain'
+    assert result['detections'][1]['format_status']=='valid'
     assert len(process(data.getvalue(),Detector(),CropStore())['detections'])==3
 
 
@@ -200,8 +212,7 @@ def test_slanted_same_line_text_is_read_left_to_right():
 def test_tight_crop_can_rescue_context_ocr_without_inventing_characters():
     from app.services.ocr import PlateOCR
     reader=object.__new__(PlateOCR)
-    readings=iter([('127EB2006',.64),('GJ27EBZ005',.84)])
-    reader.read=lambda crop:next(readings)
+    reader._recognize_crop=lambda crop,**kwargs:('127EB2006',.64) if crop.shape[0]==20 else ('GJ27EBZ005',.84)
     assert reader.read_plate(np.zeros((20,80,3),np.uint8),np.zeros((15,60,3),np.uint8))==('GJ27EBZ005',.84)
 
 
@@ -209,3 +220,7 @@ def test_valid_localized_text_wins_over_high_confidence_incomplete_fast_text():
     from app.services.ocr import PlateOCR
     assert PlateOCR.rank(('MH12AB1234',.92))>PlateOCR.rank(('MH12AB123',.98))
     assert PlateOCR.rank(('MH12AB1234',.4))<PlateOCR.rank(('MH12AB123',.8))
+def test_merge_preserves_sideways_and_slim_scooter_plates():
+    from app.services.detector import OnnxPlateDetector
+    boxes=[(10,20,18,100,.91),(200,50,160,18,.88)]
+    assert OnnxPlateDetector.merge_plates(boxes)==boxes

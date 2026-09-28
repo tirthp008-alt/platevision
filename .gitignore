@@ -15,6 +15,20 @@ __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
+pytest-cache-files-*/
+.venv-*/
+.cache/
+*.log
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
 .coverage
 htmlcov/
 
@@ -23,6 +37,11 @@ models/*.onnx
 models/*.pt
 models/*.bin
 models/*.engine
+models/**/*.onnx
+models/**/*.pt
+models/**/*.pth
+models/**/*.bin
+models/**/*.engine
 !models/README.md
 
 # Environment files

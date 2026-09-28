@@ -35,25 +35,29 @@ export default function DashboardPage() {
           {/* Institutional Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gov-saffron/30 bg-gov-saffron/10 text-gov-saffron text-xs font-mono font-bold">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>National Automated Number Plate Recognition (ANPR) System</span>
+            <span>Drishti Grid · PlateVision prototype</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-            High-Precision Vehicle <br className="hidden sm:inline" />
+            Multi-Camera Vehicle <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-gov-saffron via-orange-400 to-amber-300 bg-clip-text text-transparent">
               Traffic Vision & Recognition
             </span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
-            Official-standard deep learning OCR and edge computer-vision engine for high-speed multi-plate detection across Live Traffic Streams, Mobile Cameras, Photos, and Recorded Video Media.
+            Detect plates, review OCR evidence, and explore vehicle routes across cameras. Open the Drishti Grid dashboard for trajectory review, or analyse individual traffic images and feeds below.
           </p>
 
-          {/* Quick Metrics Bar */}
+          <Link href="/grid" className="inline-flex items-center gap-2 rounded-lg bg-gov-saffron px-4 py-2.5 text-sm font-bold text-gov-deepnavy hover:bg-orange-300 transition-colors">
+            Open multi-camera dashboard <ArrowRight className="h-4 w-4" />
+          </Link>
+
+          {/* Model configuration and prototype status */}
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-3 border-t border-gov-border/80 text-xs font-mono">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-              <span className="text-slate-300">AI Core: <strong className="text-emerald-400">YOLOv8 + PaddleOCR</strong></span>
+              <span className="text-slate-300">Inference: <strong className="text-emerald-400">Configured detector + OCR</strong></span>
             </div>
             <div className="hidden sm:inline text-slate-600">•</div>
             <div>
@@ -61,7 +65,7 @@ export default function DashboardPage() {
             </div>
             <div className="hidden sm:inline text-slate-600">•</div>
             <div>
-              <span className="text-slate-300">Privacy Standard: <strong className="text-white">DPDP 2023 Compliant</strong></span>
+              <span className="text-slate-300">Status: <strong className="text-white">Research prototype</strong></span>
             </div>
           </div>
         </div>
@@ -171,10 +175,10 @@ export default function DashboardPage() {
           </div>
           <div className="space-y-0.5">
             <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
-              <span>Volatile Memory Architecture (DPDP Act 2023 Compliant)</span>
+              <span>Reviewable observations and configurable retention</span>
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
-              All video frames and uploaded images are processed exclusively in volatile RAM and automatically purged. No vehicle media is stored on permanent disk storage.
+              PlateVision caches image crops temporarily. Drishti Grid stores sightings, routes and audit records; the desktop console writes annotated video exports. Review the configured retention before a demonstration.
             </p>
           </div>
         </div>
