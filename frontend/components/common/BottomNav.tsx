@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Camera, Upload, History, Home, Cctv } from "lucide-react";
+import { Camera, Upload, History, Home, Cctv, Radar } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const MOBILE_NAV = [
   { label: "Dashboard", href: "/", icon: Home },
+  { label: "Grid Map", href: "/grid", icon: Radar },
   { label: "Traffic Stream", href: "/cctv", icon: Cctv },
   { label: "Phone Cam", href: "/camera", icon: Camera },
-  { label: "Upload", href: "/upload", icon: Upload },
   { label: "Audit Ledger", href: "/history", icon: History },
 ];
 

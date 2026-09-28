@@ -17,7 +17,7 @@ from app.services.ocr.engine import ocr_engine
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Pre-warm detector and OCR models on application startup."""
+    """Pre-warm detector, OCR and Drishti Grid services on application startup."""
     logger.info("Initializing PlateVision backend services...")
     try:
         det = get_detector()
@@ -25,8 +25,39 @@ async def lifespan(app: FastAPI):
         logger.info(f"OCR Engine backend: {ocr_engine._engine_type}")
     except Exception as e:
         logger.error(f"Error during startup model loading: {e}")
+
+    # Drishti Grid: initialise persistence, road network and the fusion loop.
+    try:
+        from app.grid.camera_manager import camera_manager
+        from app.grid.db import init_db, session_scope
+        from app.grid import repository as repo
+        from app.grid.fusion import fusion_engine
+        from app.grid.road_network import road_network
+
+        engine = init_db()
+        with session_scope() as session:
+            cams = repo.list_cameras(session)
+            road_network.register_cameras(
+                [{"id": c.id, "latitude": c.latitude, "longitude": c.longitude} for c in cams]
+            )
+            logger.info(f"Drishti Grid: {len(cams)} camera(s) registered.")
+        fusion_engine.start_background()
+        logger.info("Drishti Grid: fusion engine background loop started.")
+        app.state.grid_camera_manager = camera_manager
+    except Exception as e:
+        logger.error(f"Drishti Grid initialization error: {e}")
+
     yield
+
     logger.info("Shutting down PlateVision backend...")
+    try:
+        from app.grid.camera_manager import camera_manager
+        from app.grid.fusion import fusion_engine
+
+        camera_manager.stop_all()
+        fusion_engine.stop_background()
+    except Exception as e:
+        logger.error(f"Drishti Grid shutdown error: {e}")
 
 
 app = FastAPI(
