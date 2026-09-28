@@ -1,4 +1,6 @@
 .venv/
+.venv-train/
+.venv-train-xpu/
 __pycache__/
 .pytest_cache/
 node_modules/
@@ -10,16 +12,21 @@ dist/
 .env
 *.onnx
 *.pt
+*.pth
 pytest-cache-files-*/
 video-results/
+video-results-green/
+video-results-nano/
+video-results-regions/
+video-results-checkpoint-*/
 .video-cache/
 
 # Local model/data downloads and runtime caches (rebuild using the setup scripts).
 .cache/
+Ultralytics/
 platevision/data/
 platevision/training-logs/
-platevision/models/runs/
-ac8cc3352e06c3/
+platevision/models/
 .publish/
 .env.*
 !.env.example

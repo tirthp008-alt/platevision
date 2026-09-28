@@ -73,7 +73,8 @@ def test_demo_generator_produces_frames_with_plates():
     assert seen_plate_text, "demo frames should contain detectable plate regions"
 
 
-def test_demo_generator_is_deterministic_per_camera():
+def test_demo_generator_is_deterministic_per_camera(monkeypatch):
+    monkeypatch.setattr('app.grid.demo.time.time', lambda: 1003.0)
     a = DemoSceneGenerator("Cam", 0)
     b = DemoSceneGenerator("Cam", 0)
     # Same camera index → identical geometry for the same elapsed time.

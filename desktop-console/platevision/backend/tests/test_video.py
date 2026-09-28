@@ -4,6 +4,52 @@ import numpy as np
 import pytest
 from fastapi.testclient import TestClient
 from app.services.video import PlateTracks, VideoJob, visible, process_video, annotate
+from app.services.video import detect_video_frame,video_search_strategy
+
+
+def test_fast_video_searches_all_frames_with_whole_scene_gpu_model():
+    class Detector:
+        fast_models={'landscape':object(),'portrait':object()}
+        calls=0
+        def detect_fast(self,image):
+            self.calls+=1
+            return [(10,20,70,20,.9),(150,20,70,20,.8)]
+        def detect_plates(self,*args,**kwargs):
+            raise AssertionError('Fast GPU frames must not repeat tiled inference')
+    detector=Detector()
+    for _ in range(10):
+        assert len(detect_video_frame(detector,np.zeros((108,192,3),np.uint8),'fast'))==2
+    assert detector.calls==10
+    assert video_search_strategy(detector,'fast')=='high_resolution_whole_frame'
+
+
+def test_detailed_video_and_unsupported_models_retain_tiled_search():
+    class Detector:
+        fast_models=None
+        def detect_fast(self,image):raise AssertionError('Unavailable GPU graph')
+        def detect_plates(self,image,refine):return [('tiled',refine)]
+    detector=Detector();image=np.zeros((10,10,3),np.uint8)
+    assert detect_video_frame(detector,image,'fast')==[('tiled',False)]
+    detector.fast_models={'landscape':object()}
+    assert detect_video_frame(detector,image,'detailed')==[('tiled',True)]
+
+
+def test_model_restart_retains_only_unexpired_completed_downloads(tmp_path,monkeypatch):
+    import json
+    import os
+    from app.core.config import settings
+    from app.services.video import restore_completed_jobs
+    monkeypatch.setattr(settings,'video_output_dir',str(tmp_path))
+    for ident in ('a'*32,'b'*32,'c'*32,'not-a-job'):
+        folder=tmp_path/ident;folder.mkdir()
+        (folder/'results.json').write_text(json.dumps({'frames':90,'profile':'fast','tracks':[]}))
+        if ident!='c'*32:(folder/'annotated.mp4').write_bytes(b'completed video')
+    expired=tmp_path/('b'*32)/'results.json'
+    old=time.time()-settings.video_result_ttl_seconds-1;os.utime(expired,(old,old))
+    restored=restore_completed_jobs()
+    assert list(restored)==['a'*32]
+    assert restored['a'*32].snapshot()['status']=='complete'
+    assert restored['a'*32].snapshot()['video_url']==f"/api/videos/{'a'*32}/video"
 
 
 def make_job(tmp_path):
@@ -27,12 +73,12 @@ def test_departed_plate_does_not_reuse_old_track():
     assert tracker.update([(10,20,70,20,.9)],30,image)[0]['track_id']==2
 
 
-def test_weak_candidate_needs_plate_text_evidence():
+def test_plate_regions_remain_visible_even_when_ocr_has_no_plate_text_evidence():
     observation={'score':.3,'track_id':1,'box':[10,20,70,20]}
     track={'text':'MOTOR','confidence':.99,'format_status':'uncertain','id':1}
-    assert not visible(observation,track)
+    assert visible(observation,track)
     image=np.zeros((100,100,3),np.uint8)
-    assert not annotate(image.copy(),[observation],[track]).any()
+    assert annotate(image.copy(),[observation],[track]).any()
     track['text']='MH12AB1234'
     assert visible(observation,track)
     assert annotate(image.copy(),[observation],[track]).any()

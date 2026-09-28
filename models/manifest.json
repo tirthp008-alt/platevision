@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "release_tag": "v2026.09.28-models",
+  "release_url": "https://github.com/tirthp008-alt/platevision/releases/tag/v2026.09.28-models",
+  "bundles": {
+    "core": {
+      "asset": "platevision-core-models.zip",
+      "url": "https://github.com/tirthp008-alt/platevision/releases/download/v2026.09.28-models/platevision-core-models.zip",
+      "size_bytes": 47916080,
+      "sha256": "825a16927807b8ed74b70f7b43869e1c9814d58d7356121eea1bd5e2c1c95706",
+      "files": [
+        {
+          "path": "desktop-console/platevision/models/runs/combined_green_v3/weights/best.onnx",
+          "size_bytes": 12238428,
+          "sha256": "658d763e2a603cde6269bb45272e87795d46f206aa18c06655de7f54d41437a5",
+          "copies": [
+            "models/plate_detector.onnx"
+          ]
+        },
+        {
+          "path": "desktop-console/platevision/models/runs/combined_green_v3/model-card.json",
+          "size_bytes": 683,
+          "sha256": "02d1c43b41e5507a34e80406d2956773a0cbe687f6ac53680d949810e9fe733b"
+        },
+        {
+          "path": "desktop-console/platevision/models/runs/yolo11n_plates_20260927_userzip20_cpu/weights/best.onnx",
+          "size_bytes": 10423299,
+          "sha256": "906fc0b38309e1d4c55459575c5eaa7eef84c74baf6e21d55f4f289cbff77e1e"
+        },
+        {
+          "path": "desktop-console/platevision/models/runs/yolo11n_plates_20260927_userzip20_cpu/model-card.json",
+          "size_bytes": 1272,
+          "sha256": "34dbd728d26ea5b1f7670ac5ca0717431513d5367c5c9cd1f1c461db9205a29f"
+        },
+        {
+          "path": "desktop-console/platevision/models/indian-vehicles/UVH-26-MV-YOLOv11-S.onnx",
+          "size_bytes": 37767030,
+          "sha256": "91f8aab79100ca910c095a62e3c3a079d01d81c78f6f1b2b47c100f868c2883b"
+        },
+        {
+          "path": "desktop-console/platevision/models/indian-vehicles/model-card.json",
+          "size_bytes": 993,
+          "sha256": "39f95062fe221394ccd2fbae2278336045ee29e2d64449a70c264bd6d0c9a27c"
+        }
+      ]
+    },
+    "reid": {
+      "asset": "platevision-reid-models.zip",
+      "url": "https://github.com/tirthp008-alt/platevision/releases/download/v2026.09.28-models/platevision-reid-models.zip",
+      "size_bytes": 87489931,
+      "sha256": "308a0df161e95223b44b755136d6fc9cc15a577e0fbeeefc87fb5de07d87d11a",
+      "files": [
+        {
+          "path": "desktop-console/platevision/models/reid/veri-sbs-r50-ibn.onnx",
+          "size_bytes": 94124971,
+          "sha256": "36155fa20d749f3ca95dfa7f99ac1286cdc98ba3874f577b2b9eeab146b3d1d5"
+        },
+        {
+          "path": "desktop-console/platevision/models/reid/model-card.json",
+          "size_bytes": 2798,
+          "sha256": "20e85d8d2121cb137d87f0259a2b2138b5c80a104aea97655a760c9a61345334"
+        }
+      ]
+    }
+  },
+  "models": {
+    "recommended": {
+      "label": "Green YOLOv8n — recommended default",
+      "path": "desktop-console/platevision/models/runs/combined_green_v3/weights/best.onnx",
+      "sha256": "658d763e2a603cde6269bb45272e87795d46f206aa18c06655de7f54d41437a5",
+      "required_files": [
+        "desktop-console/platevision/models/runs/combined_green_v3/weights/best.onnx",
+        "desktop-console/platevision/models/indian-vehicles/UVH-26-MV-YOLOv11-S.onnx"
+      ]
+    },
+    "yolo11n": {
+      "label": "YOLO11n — 20-epoch comparison candidate",
+      "path": "desktop-console/platevision/models/runs/yolo11n_plates_20260927_userzip20_cpu/weights/best.onnx",
+      "sha256": "906fc0b38309e1d4c55459575c5eaa7eef84c74baf6e21d55f4f289cbff77e1e",
+      "required_files": [
+        "desktop-console/platevision/models/runs/yolo11n_plates_20260927_userzip20_cpu/weights/best.onnx",
+        "desktop-console/platevision/models/runs/yolo11n_plates_20260927_userzip20_cpu/model-card.json",
+        "desktop-console/platevision/models/indian-vehicles/UVH-26-MV-YOLOv11-S.onnx"
+      ]
+    }
+  }
+}

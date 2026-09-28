@@ -37,7 +37,7 @@ export function Navbar() {
               </span>
             </div>
             <p className="text-[10px] text-slate-400 -mt-0.5 hidden sm:block font-medium">
-              National Traffic Vision & License Plate Recognition
+              Vehicle Vision & Plate Recognition Prototype
             </p>
           </div>
         </Link>

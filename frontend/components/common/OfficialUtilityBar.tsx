@@ -15,6 +15,7 @@ export function OfficialUtilityBar() {
       // Format in IST (Indian Standard Time)
       setCurrentTime(
         now.toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit",
@@ -23,6 +24,7 @@ export function OfficialUtilityBar() {
       );
       setCurrentDate(
         now.toLocaleDateString("en-IN", {
+          timeZone: "Asia/Kolkata",
           weekday: "short",
           day: "2-digit",
           month: "short",
@@ -63,17 +65,17 @@ export function OfficialUtilityBar() {
   };
 
   return (
-    <aside aria-label="Accessibility & Official Portal Utility Bar" className="w-full bg-gov-deepnavy/95 border-b border-gov-border text-slate-300 text-[11px] font-sans">
+    <aside aria-label="Accessibility and project utility bar" className="w-full bg-gov-deepnavy/95 border-b border-gov-border text-slate-300 text-[11px] font-sans">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-1.5 flex flex-wrap items-center justify-between gap-2">
         {/* Left: Portal Notice */}
         <div className="flex items-center gap-2">
           <span className="inline-block w-2 h-2 rounded-full bg-gov-saffron animate-pulse" />
           <span className="font-medium text-slate-200 tracking-tight">
-            National Automated Vehicle Vision & ANPR Utility
+            Drishti Grid · Vehicle vision prototype
           </span>
           <span className="hidden md:inline text-slate-500">•</span>
           <span className="hidden md:inline text-slate-400 font-mono text-[10px]">
-            HSRP RTO Pattern Standard 2024
+            Independent project · Model results require review
           </span>
         </div>
 

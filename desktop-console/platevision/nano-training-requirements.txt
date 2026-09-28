@@ -1,0 +1,9 @@
+# Optional overlay for scripts/train_nano_candidates.py.
+# Install with --target .cache/nano-training-deps --no-deps from project root.
+# Requires the existing .venv-train environment (training-requirements.txt).
+ultralytics==8.4.157
+polars==1.44.2
+polars-runtime-32==1.44.2
+ultralytics-thop==2.1.6
+cloudpickle==3.1.2
+nvidia-ml-py==13.610.43

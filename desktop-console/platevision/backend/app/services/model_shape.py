@@ -1,7 +1,7 @@
-"""Rebuild the fixed YOLOv8 export's spatial grid, without changing weights.
+"""Specialize dynamic exports or rebuild the verified fixed YOLOv8 grid.
 
-Only the verified single-class 640 px export is accepted. Other architectures
-retain the ordinary tiled detector rather than guessing their output layout.
+Dynamic YOLO11/26 exports build their own grids during ordinary model.reshape.
+The older fixed YOLOv8 export alone needs its verified constants rewritten.
 """
 import numpy as np
 
@@ -20,8 +20,21 @@ def anchor_grid(height,width):
 def resize_plate_model(model,height,width):
     import openvino as ov
     from openvino import opset13 as ops
+    if height <= 0 or width <= 0 or height%32 or width%32:
+        raise ValueError('Detector dimensions must be positive multiples of 32.')
+    dimensions = model.input(0).partial_shape
+    if dimensions.rank.is_dynamic or dimensions.rank.get_length() != 4 or dimensions[1] != 3:
+        raise ValueError('Expected NCHW RGB model input.')
+    # Only a graph with dynamic spatial axes may use generic reshape. A static
+    # model can contain an input-size-specific anchor grid even when reshape
+    # happens to pass shape inference, so do not guess support for that model.
+    if dimensions[2].is_dynamic and dimensions[3].is_dynamic:
+        model.reshape({model.input(0): [1,3,height,width]})
+        return model
+    if list(dimensions) == [1,3,height,width]:
+        return model
     if list(model.input(0).shape)!=[1,3,640,640] or list(model.output(0).shape)!=[1,5,8400]:
-        raise ValueError('High-resolution adapter requires the verified YOLOv8 plate export.')
+        raise ValueError('Export with dynamic=True, or use the verified fixed YOLOv8 plate export.')
     old_grid,old_stride=anchor_grid(640,640)
     new_grid,new_stride=anchor_grid(height,width)
     replacements=[];counts={'grid':0,'stride':0,'reshape':0}

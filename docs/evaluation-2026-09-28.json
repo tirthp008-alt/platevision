@@ -1,0 +1,351 @@
+{
+  "scope": "desktop_console_only",
+  "measured_utc": "2026-09-27T21:41:37.103251+00:00",
+  "source_report_sha256": "7e98eec4f94345d0d9971eb7638f52b68284c91525e28c6657b70c0bcb5515f6",
+  "hardware": {
+    "cpu": "Intel Core Ultra 5 225H",
+    "gpu": "Intel Arc 130T",
+    "runtime": "OpenVINO GPU"
+  },
+  "training": {
+    "epochs_requested": 20,
+    "epochs_completed": 20,
+    "best_epoch": 14,
+    "training_seconds": 1460.98,
+    "onnx_sha256": "906fc0b38309e1d4c55459575c5eaa7eef84c74baf6e21d55f4f289cbff77e1e",
+    "checkpoint_sha256": "d688de0d52dc19f29eb621de523ee0af11e3eed50ee4e3f5765c7fa6f210e437",
+    "ocr_retrained": false,
+    "vehicle_category_weights_retrained": false
+  },
+  "dataset_counts": {
+    "training_images": 382,
+    "training_plate_boxes": 458,
+    "validation_examples": 155,
+    "validation_plate_boxes": 189,
+    "whole_validation_images": 97,
+    "whole_validation_plate_boxes": 131,
+    "reserved_test_images": 23,
+    "reserved_test_plate_boxes": 28
+  },
+  "recommended_model": "green8",
+  "candidate_model": "new11",
+  "grid_end_to_end_accuracy_measured": false,
+  "models": {
+    "green8": {
+      "sha256": "658d763e2a603cde6269bb45272e87795d46f206aa18c06655de7f54d41437a5",
+      "validation": {
+        "green": {
+          "images": 40,
+          "labelled": 40,
+          "matched": 34,
+          "missed": 6,
+          "recall": 0.85,
+          "all_labelled_found": 34,
+          "all_labelled_found_rate": 0.85,
+          "precision_on_reviewed_scenes": 0.5396825396825397,
+          "precision_scene_count": 40,
+          "false_positives_on_reviewed_scenes": 29,
+          "matched_on_reviewed_scenes": 34,
+          "labelled_on_reviewed_scenes": 40
+        },
+        "general": {
+          "images": 57,
+          "labelled": 91,
+          "matched": 65,
+          "missed": 26,
+          "recall": 0.7142857142857143,
+          "all_labelled_found": 35,
+          "all_labelled_found_rate": 0.6140350877192983,
+          "precision_on_reviewed_scenes": 0.5078125,
+          "precision_scene_count": 57,
+          "false_positives_on_reviewed_scenes": 63,
+          "matched_on_reviewed_scenes": 65,
+          "labelled_on_reviewed_scenes": 91
+        }
+      },
+      "reserved_test": {
+        "green": {
+          "images": 16,
+          "labelled": 16,
+          "matched": 15,
+          "missed": 1,
+          "recall": 0.9375,
+          "all_labelled_found": 15,
+          "all_labelled_found_rate": 0.9375,
+          "precision_on_reviewed_scenes": 0.875,
+          "precision_scene_count": 14,
+          "false_positives_on_reviewed_scenes": 2,
+          "matched_on_reviewed_scenes": 14,
+          "labelled_on_reviewed_scenes": 14
+        },
+        "general": {
+          "images": 7,
+          "labelled": 12,
+          "matched": 7,
+          "missed": 5,
+          "recall": 0.5833333333333334,
+          "all_labelled_found": 5,
+          "all_labelled_found_rate": 0.7142857142857143,
+          "precision_on_reviewed_scenes": 0.4666666666666667,
+          "precision_scene_count": 7,
+          "false_positives_on_reviewed_scenes": 8,
+          "matched_on_reviewed_scenes": 7,
+          "labelled_on_reviewed_scenes": 12
+        }
+      },
+      "detector_ms": {
+        "p50": 19.476050000776013,
+        "p95": 25.416330000189188
+      },
+      "detector_plus_ocr_ms": {
+        "p50": 150.5805999995573,
+        "p95": 165.46950999982073
+      },
+      "manual_http": {
+        "target_detection": {
+          "numerator": 16,
+          "denominator": 20,
+          "rate": 0.8
+        },
+        "raw_ocr_exact_end_to_end": {
+          "numerator": 6,
+          "denominator": 12,
+          "rate": 0.5
+        },
+        "raw_ocr_exact_given_target_detected": {
+          "numerator": 6,
+          "denominator": 11,
+          "rate": 0.5454545454545454
+        },
+        "application_normalized_exact_end_to_end": {
+          "numerator": 9,
+          "denominator": 12,
+          "rate": 0.75
+        },
+        "application_normalized_exact_given_target_detected": {
+          "numerator": 9,
+          "denominator": 11,
+          "rate": 0.8181818181818182
+        }
+      },
+      "synthetic_http": {
+        "target_detection": {
+          "numerator": 50,
+          "denominator": 50,
+          "rate": 1.0
+        },
+        "raw_ocr_exact_end_to_end": {
+          "numerator": 25,
+          "denominator": 50,
+          "rate": 0.5
+        },
+        "raw_ocr_exact_given_target_detected": {
+          "numerator": 25,
+          "denominator": 50,
+          "rate": 0.5
+        },
+        "application_normalized_exact_end_to_end": {
+          "numerator": 30,
+          "denominator": 50,
+          "rate": 0.6
+        },
+        "application_normalized_exact_given_target_detected": {
+          "numerator": 30,
+          "denominator": 50,
+          "rate": 0.6
+        }
+      },
+      "synthetic_http_ms": {
+        "samples": 5,
+        "p50": 213.70209999804501,
+        "p95": 253.76570000007632,
+        "min": 188.40610000188462,
+        "max": 263.47549999991315
+      },
+      "synthetic_frame_counts": {
+        "plate_regions": 10,
+        "vehicles": 8
+      },
+      "video": {
+        "status": "passed",
+        "source": {
+          "frames": 120,
+          "width": 1440,
+          "height": 420,
+          "fps": 30.0
+        },
+        "decoded_export": {
+          "frames": 120,
+          "width": 1440,
+          "height": 420,
+          "fps": 30.0
+        },
+        "range_status": 206,
+        "processing_ms_per_frame": 59.61,
+        "raw_plate_tracks": 3
+      }
+    },
+    "new11": {
+      "sha256": "906fc0b38309e1d4c55459575c5eaa7eef84c74baf6e21d55f4f289cbff77e1e",
+      "validation": {
+        "green": {
+          "images": 40,
+          "labelled": 40,
+          "matched": 40,
+          "missed": 0,
+          "recall": 1.0,
+          "all_labelled_found": 40,
+          "all_labelled_found_rate": 1.0,
+          "precision_on_reviewed_scenes": 0.7272727272727273,
+          "precision_scene_count": 40,
+          "false_positives_on_reviewed_scenes": 15,
+          "matched_on_reviewed_scenes": 40,
+          "labelled_on_reviewed_scenes": 40
+        },
+        "general": {
+          "images": 57,
+          "labelled": 91,
+          "matched": 71,
+          "missed": 20,
+          "recall": 0.7802197802197802,
+          "all_labelled_found": 37,
+          "all_labelled_found_rate": 0.6491228070175439,
+          "precision_on_reviewed_scenes": 0.5220588235294118,
+          "precision_scene_count": 57,
+          "false_positives_on_reviewed_scenes": 65,
+          "matched_on_reviewed_scenes": 71,
+          "labelled_on_reviewed_scenes": 91
+        }
+      },
+      "reserved_test": {
+        "green": {
+          "images": 16,
+          "labelled": 16,
+          "matched": 15,
+          "missed": 1,
+          "recall": 0.9375,
+          "all_labelled_found": 15,
+          "all_labelled_found_rate": 0.9375,
+          "precision_on_reviewed_scenes": 0.9285714285714286,
+          "precision_scene_count": 14,
+          "false_positives_on_reviewed_scenes": 1,
+          "matched_on_reviewed_scenes": 13,
+          "labelled_on_reviewed_scenes": 14
+        },
+        "general": {
+          "images": 7,
+          "labelled": 12,
+          "matched": 6,
+          "missed": 6,
+          "recall": 0.5,
+          "all_labelled_found": 5,
+          "all_labelled_found_rate": 0.7142857142857143,
+          "precision_on_reviewed_scenes": 0.46153846153846156,
+          "precision_scene_count": 7,
+          "false_positives_on_reviewed_scenes": 7,
+          "matched_on_reviewed_scenes": 6,
+          "labelled_on_reviewed_scenes": 12
+        }
+      },
+      "detector_ms": {
+        "p50": 21.43690000048082,
+        "p95": 26.954324999860546
+      },
+      "detector_plus_ocr_ms": {
+        "p50": 146.23419999952603,
+        "p95": 167.9163400008292
+      },
+      "manual_http": {
+        "target_detection": {
+          "numerator": 14,
+          "denominator": 20,
+          "rate": 0.7
+        },
+        "raw_ocr_exact_end_to_end": {
+          "numerator": 5,
+          "denominator": 12,
+          "rate": 0.4166666666666667
+        },
+        "raw_ocr_exact_given_target_detected": {
+          "numerator": 5,
+          "denominator": 10,
+          "rate": 0.5
+        },
+        "application_normalized_exact_end_to_end": {
+          "numerator": 7,
+          "denominator": 12,
+          "rate": 0.5833333333333334
+        },
+        "application_normalized_exact_given_target_detected": {
+          "numerator": 7,
+          "denominator": 10,
+          "rate": 0.7
+        }
+      },
+      "synthetic_http": {
+        "target_detection": {
+          "numerator": 50,
+          "denominator": 50,
+          "rate": 1.0
+        },
+        "raw_ocr_exact_end_to_end": {
+          "numerator": 20,
+          "denominator": 50,
+          "rate": 0.4
+        },
+        "raw_ocr_exact_given_target_detected": {
+          "numerator": 20,
+          "denominator": 50,
+          "rate": 0.4
+        },
+        "application_normalized_exact_end_to_end": {
+          "numerator": 35,
+          "denominator": 50,
+          "rate": 0.7
+        },
+        "application_normalized_exact_given_target_detected": {
+          "numerator": 35,
+          "denominator": 50,
+          "rate": 0.7
+        }
+      },
+      "synthetic_http_ms": {
+        "samples": 5,
+        "p50": 204.26539999971283,
+        "p95": 536.1855600014678,
+        "min": 181.62180000217631,
+        "max": 609.9887000018498
+      },
+      "synthetic_frame_counts": {
+        "plate_regions": 10,
+        "vehicles": 8
+      },
+      "video": {
+        "status": "passed",
+        "source": {
+          "frames": 120,
+          "width": 1440,
+          "height": 420,
+          "fps": 30.0
+        },
+        "decoded_export": {
+          "frames": 120,
+          "width": 1440,
+          "height": 420,
+          "fps": 30.0
+        },
+        "range_status": 206,
+        "processing_ms_per_frame": 59.46,
+        "raw_plate_tracks": 3
+      }
+    }
+  },
+  "notes": [
+    "IoU >= 0.5 and detector confidence 0.25; 97 whole validation images and 23 previously used reserved-test images.",
+    "Manual OCR: purposive 20-image subset with 12 scored clear registrations; no raw images or strings included.",
+    "Raw exact ignores case and whitespace; application-normalized exact includes backend character repairs.",
+    "Synthetic HTTP: 1 warmup and 5 measured requests, repeating 10 regions from 3 source vehicles.",
+    "Full HTTP includes vehicles, crop searches, OCR and angle correction; browser rendering excluded.",
+    "Recommended model retained because candidate coverage and OCR regressions prevent consistent improvement."
+  ]
+}

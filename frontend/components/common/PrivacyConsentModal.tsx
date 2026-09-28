@@ -34,11 +34,11 @@ export function PrivacyConsentModal({ isOpen, onConsent }: PrivacyConsentModalPr
         <div className="space-y-2.5 text-xs text-slate-300">
           <div className="flex items-start gap-2.5">
             <Lock className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-            <span><strong>No Server Storage:</strong> Images and plate crops are processed transiently in-memory and are never permanently saved on our servers.</span>
+            <span><strong>Backend processing:</strong> Image crops are cached temporarily. Drishti Grid stores vehicle observations and audit records; saved video exports are retained by the desktop console.</span>
           </div>
           <div className="flex items-start gap-2.5">
             <EyeOff className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-            <span><strong>Client-Side History:</strong> Scan metadata remains solely inside your browser. No surveillance or vehicle owner tracking is performed.</span>
+            <span><strong>History and tracking:</strong> This scan history is stored in your browser. Drishti Grid separately tracks vehicle observations across configured cameras; it does not identify vehicle owners.</span>
           </div>
         </div>
 

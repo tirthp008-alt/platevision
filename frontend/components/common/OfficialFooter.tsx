@@ -23,14 +23,14 @@ export function OfficialFooter() {
               </div>
             </div>
             <p className="text-slate-400 leading-relaxed text-xs max-w-md">
-              High-accuracy Edge AI and Deep OCR system for automated Indian and international vehicle registration plate detection, cropping, and validation across phone cameras, CCTV feeds, and traffic media.
+              Plate detection, OCR review, vehicle observations and multi-camera trajectory exploration. Measured results and model limitations are documented in the project repository.
             </p>
             <div className="flex flex-wrap gap-2 pt-1">
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-gov-panel border border-gov-border text-[10px] text-emerald-400 font-mono">
-                <CheckCircle2 className="w-3 h-3 text-emerald-400" /> DPDP Act 2023 Compliant
+                <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Research prototype
               </span>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-gov-panel border border-gov-border text-[10px] text-gov-saffron font-mono">
-                <Lock className="w-3 h-3 text-gov-saffron" /> 256-Bit RAM Processing
+                <Lock className="w-3 h-3 text-gov-saffron" /> Reviewable model outputs
               </span>
             </div>
           </div>
@@ -90,10 +90,10 @@ export function OfficialFooter() {
             <span>Public Portal Disclaimer & Information Notice:</span>
           </div>
           <p>
-            PlateVision is an automated computer vision & ANPR utility built for authorized traffic surveillance, fleet inspection, parking management, and public computer-vision research. This interface is inspired by standard Indian public infrastructure portals for high clarity and accessibility; it is a non-governmental technology utility and does not represent or claim official government affiliation unless under authorized service contract.
+            PlateVision is an automated computer vision & ANPR utility built for authorized traffic surveillance, fleet inspection, parking management, and public computer-vision research. This interface is inspired by standard Indian public infrastructure portals for high clarity and accessibility; it is a non-governmental technology utility and does not represent a government service or official endorsement.
           </p>
           <p className="text-slate-500 font-mono text-[10px]">
-            Zero Permanent Disk Storage Policy: All uploaded images and live stream frames are processed strictly in volatile system RAM with instant memory eviction.
+            Storage depends on the workflow: image crops are cached temporarily, Grid keeps observation and audit records, and the desktop console saves annotated exports.
           </p>
         </div>
 

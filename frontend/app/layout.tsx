@@ -9,9 +9,9 @@ import { BottomNav } from "@/components/common/BottomNav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PlateVision — National Vehicle Vision & Traffic ANPR Portal",
+  title: "Drishti Grid · PlateVision — Vehicle Vision Prototype",
   description:
-    "Official-grade Automated Number Plate Recognition (ANPR) and Traffic Surveillance System for Indian and international vehicle registration plates.",
+    "Drishti Grid and PlateVision: a prototype for number-plate recognition, vehicle observations, and multi-camera trajectory review.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -23,8 +23,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  userScalable: true,
   themeColor: "#0A192F",
 };
 
