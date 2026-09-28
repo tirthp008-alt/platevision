@@ -2,8 +2,13 @@ name: Tests and build
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -82,4 +87,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test --test-isolation=none tests/video-analysis.test.cjs tests/region-mode.test.cjs tests/reid-ui.test.cjs tests/green-enhancement.test.cjs
+      - run: node --test tests/video-analysis.test.cjs tests/region-mode.test.cjs tests/reid-ui.test.cjs tests/green-enhancement.test.cjs
